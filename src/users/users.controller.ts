@@ -21,9 +21,6 @@ export class UsersController {
     @Body('password') password: string,
     @Body('name') name: string,
   ) {
-    // const email: string = req.body.email
-    // const password :string = req.body.password
-    // const password :string = req.body.password
     return this.usersService.create(email, password, name);
   }
 
