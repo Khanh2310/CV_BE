@@ -18,6 +18,7 @@ import { UsersModule } from './users/users.module';
     }),
     UsersModule,
   ],
+
   controllers: [AppController],
   providers: [AppService],
 })
