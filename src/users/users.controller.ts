@@ -35,10 +35,18 @@ export class UsersController {
   findAll() {
     return this.usersService.findAll();
   }
+  // trường hợp thằng nest nó chạy từ trên xuống nên là nó thấy cái nào map (khớp là nó lụm)
+  // ví dụ thử
+  @Get('/abc')
+  findABC() {
+    // const id:string = req.param.id
+    return 'djashdjsad'; // + convert string => number
+  }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+    // const id:string = req.param.id
+    return this.usersService.findOne(id); // + convert string => number
   }
 
   @Patch(':id')
