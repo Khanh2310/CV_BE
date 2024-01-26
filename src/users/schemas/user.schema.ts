@@ -15,10 +15,13 @@ export class User {
 
   @Prop()
   name: string;
+
   @Prop()
   address: string;
+
   @Prop()
   phone: string;
+
   @Prop()
   age: Date;
 }

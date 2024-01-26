@@ -43,15 +43,9 @@ export class UsersController {
     return 'djashdjsad'; // + convert string => number
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    // const id:string = req.param.id
-    return this.usersService.findOne(id); // + convert string => number
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  @Patch()
+  update(@Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(updateUserDto);
   }
 
   @Delete(':id')

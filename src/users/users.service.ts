@@ -44,12 +44,13 @@ export class UsersService {
     return `This action returns all users`;
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} user`;
-  }
-
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(updateUserDto: UpdateUserDto) {
+    return await this.UserModel.updateOne(
+      {
+        _id: updateUserDto._id,
+      },
+      { ...updateUserDto },
+    );
   }
 
   remove(id: number) {
