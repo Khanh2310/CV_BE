@@ -4,7 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schemas/user.schema';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { genSaltSync, hashSync } from 'bcryptjs';
 
 @Injectable()
@@ -53,7 +53,11 @@ export class UsersService {
     );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  remove(id: string) {
+    if (!mongoose.Types.ObjectId.isValid(id)) return 'user not found';
+
+    return this.UserModel.deleteOne({
+      _id: id,
+    });
   }
 }
