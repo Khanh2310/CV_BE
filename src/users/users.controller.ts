@@ -37,18 +37,20 @@ export class UsersController {
   }
   // trường hợp thằng nest nó chạy từ trên xuống nên là nó thấy cái nào map (khớp là nó lụm)
   // ví dụ thử
-  @Get('/abc')
-  findABC() {
-    // const id:string = req.param.id
-    return 'djashdjsad'; // + convert string => number
-  }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
+    console.log('idgg');
     // const id:string = req.param.id
     return this.usersService.findOne(id); // + convert string => number
   }
 
+  @Get('/111')
+  findABC() {
+    console.log('dsad');
+    // const id:string = req.param.id
+    return 'djashdjsad'; // + convert string => number
+  }
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(+id, updateUserDto);
