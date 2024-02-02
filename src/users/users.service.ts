@@ -51,6 +51,15 @@ export class UsersService {
   update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
   }
+  findOneByUserName(username: string) {
+    return this.UserModel.findOne({
+      email: username,
+    });
+  }
+
+  isValidPassword(password: string, hash: string) {
+    return compareSync(password, hash);
+  }
 
   remove(id: string) {
     if (!mongoose.Types.ObjectId.isValid(id)) return 'user not found';
