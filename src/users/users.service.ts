@@ -4,7 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schemas/user.schema';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { compareSync, genSaltSync, hashSync } from 'bcryptjs';
 
 @Injectable()
@@ -48,21 +48,15 @@ export class UsersService {
     return `This action returns a #${id} user`;
   }
 
-  findOneByUserName(username: string) {
-    return this.UserModel.findOne({
-      email: username,
-    });
-  }
-
-  isValidPassword(password: string, hash: string) {
-    return compareSync(password, hash);
-  }
-
   update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  remove(id: string) {
+    if (!mongoose.Types.ObjectId.isValid(id)) return 'user not found';
+
+    return this.UserModel.deleteOne({
+      _id: id,
+    });
   }
 }
