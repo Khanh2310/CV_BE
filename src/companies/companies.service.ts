@@ -11,7 +11,7 @@ export class CompaniesService {
     @InjectModel(Company.name)
     private companyModel: SoftDeleteModel<CompanyDocument>,
   ) {}
-  async create(createCompanyDto: CreateCompanyDto) {
+  create(createCompanyDto: CreateCompanyDto) {
     return this.companyModel.create({ ...createCompanyDto });
   }
 
@@ -24,7 +24,7 @@ export class CompaniesService {
   }
 
   update(id: number, updateCompanyDto: UpdateCompanyDto) {
-    return `This action updates a #${id} company`;
+    return `This action updates a #${id} ${updateCompanyDto} company`;
   }
 
   remove(id: number) {
