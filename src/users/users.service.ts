@@ -58,6 +58,7 @@ export class UsersService {
       },
     );
   }
+
   findOneByUserName(username: string) {
     return this.UserModel.findOne({
       email: username,
