@@ -3,9 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { UsersModule } from './users/users.module';
-import { AuthModule } from './auth/auth.module';
-import { CompaniesModule } from './companies/companies.module';
+import { UsersModule } from './users';
+import { AuthModule } from './auth';
+import { CompaniesModule } from './companies';
 import { softDeletePlugin } from 'soft-delete-plugin-mongoose';
 @Module({
   imports: [
