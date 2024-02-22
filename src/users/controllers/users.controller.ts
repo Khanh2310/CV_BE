@@ -9,30 +9,22 @@ import {
 } from '@nestjs/common';
 import { UsersService } from '../services';
 import { CreateUserDto, UpdateUserDto } from '../dto';
+import { Public } from 'src/auth/customize';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  // No DTO
-  // @Post()
-  // create(
-  //   @Body('email') email: string,
-  //   @Body('password') password: string,
-  //   @Body('name') name: string,
-  // ) {
-  //   return this.usersService.create(email, password, name);
-  // }
-
-  // With DTO
+  @Public()
   @Post()
   create(@Body() addUser: CreateUserDto) {
     return this.usersService.create(addUser);
   }
 
-  @Get()
+  @Post('/abc')
   findAll() {
-    return this.usersService.findAll();
+    console.log('object');
+    // return this.usersService.findAll();
   }
   // trường hợp thằng nest nó chạy từ trên xuống nên là nó thấy cái nào map (khớp là nó lụm)
   // ví dụ thử

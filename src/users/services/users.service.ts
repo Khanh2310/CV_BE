@@ -16,19 +16,6 @@ export class UsersService {
     return hash;
   };
 
-  // No DTO
-  // async create(email: string, password: string, name: string) {
-  //   const hash = this.getHashPassword(password);
-  //   const user = await this.UserModel.create({
-  //     email,
-  //     password: hash,
-  //     name,
-  //   });
-  //   return user;
-  // }
-
-  // DTO
-
   async create(addUser: CreateUserDto) {
     const hash = this.getHashPassword(addUser.password);
     const user = await this.UserModel.create({
