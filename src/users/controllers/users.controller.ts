@@ -9,19 +9,22 @@ import {
 } from '@nestjs/common';
 import { UsersService } from '../services';
 import { CreateUserDto, UpdateUserDto } from '../dto';
+import { Public } from 'src/auth/customize';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @Public()
   @Post()
   create(@Body() addUser: CreateUserDto) {
     return this.usersService.create(addUser);
   }
 
-  @Get()
+  @Post('/abc')
   findAll() {
-    return this.usersService.findAll();
+    console.log('object');
+    // return this.usersService.findAll();
   }
 
   @Get(':id')
