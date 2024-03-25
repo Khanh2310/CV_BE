@@ -14,17 +14,6 @@ import { CreateUserDto, UpdateUserDto } from '../dto';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  // No DTO
-  // @Post()
-  // create(
-  //   @Body('email') email: string,
-  //   @Body('password') password: string,
-  //   @Body('name') name: string,
-  // ) {
-  //   return this.usersService.create(email, password, name);
-  // }
-
-  // With DTO
   @Post()
   create(@Body() addUser: CreateUserDto) {
     return this.usersService.create(addUser);
@@ -34,13 +23,10 @@ export class UsersController {
   findAll() {
     return this.usersService.findAll();
   }
-  // trường hợp thằng nest nó chạy từ trên xuống nên là nó thấy cái nào map (khớp là nó lụm)
-  // ví dụ thử
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    // const id:string = req.param.id
-    return this.usersService.findOne(id); // + convert string => number
+    return this.usersService.findOne(id);
   }
 
   @Patch(':id')
