@@ -24,7 +24,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 
   handleRequest(err, user) {
     if (err || !user) {
-      throw err || new UnauthorizedException('User not default');
+      throw err || new UnauthorizedException('Token invalid');
     }
     return user;
   }
