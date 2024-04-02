@@ -19,6 +19,7 @@ export class AuthService {
         return user;
       }
     }
+
     return null;
   }
 
@@ -34,6 +35,7 @@ export class AuthService {
       email,
       role,
     };
+
     return {
       access_token: this.jwtService.sign(payload),
       _id,

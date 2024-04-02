@@ -26,14 +26,6 @@ export class UsersService {
     return user;
   }
 
-  findAll() {
-    return `This action returns all users`;
-  }
-
-  findOne(id: string) {
-    return `This action returns a #${id} user`;
-  }
-
   async update(id: string, updateUserDto: UpdateUserDto) {
     return await this.UserModel.updateOne(
       {
