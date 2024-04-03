@@ -16,6 +16,10 @@ export class UsersService {
     return hash;
   };
 
+  findAll() {
+    return `Find User Success`;
+  }
+
   async create(addUser: CreateUserDto) {
     const hash = this.getHashPassword(addUser.password);
     const user = await this.UserModel.create({
