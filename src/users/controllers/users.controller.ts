@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  Get,
-} from '@nestjs/common';
+import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { UsersService } from '../services';
 import { CreateUserDto, UpdateUserDto } from '../dto';
 import { Public } from 'src/auth/customize';
@@ -14,11 +6,6 @@ import { Public } from 'src/auth/customize';
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
-  @Get()
-  findAll() {
-    return this.usersService.findAll();
-  }
 
   @Public()
   @Post()
