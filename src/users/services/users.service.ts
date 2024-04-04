@@ -45,7 +45,6 @@ export class UsersService {
 
   isValidPassword(password: string, hash: string) {
     return compareSync(password, hash);
-    console.log('object');
   }
 
   remove(id: string) {

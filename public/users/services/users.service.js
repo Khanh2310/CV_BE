@@ -50,7 +50,6 @@ let UsersService = class UsersService {
     }
     isValidPassword(password, hash) {
         return (0, bcryptjs_1.compareSync)(password, hash);
-        console.log('object');
     }
     remove(id) {
         if (!mongoose_2.default.Types.ObjectId.isValid(id))

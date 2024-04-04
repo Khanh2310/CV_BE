@@ -16,6 +16,7 @@ exports.CompaniesService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const schemas_1 = require("../schemas");
+const api_query_params_1 = require("api-query-params");
 let CompaniesService = class CompaniesService {
     constructor(companyModel) {
         this.companyModel = companyModel;
@@ -29,8 +30,30 @@ let CompaniesService = class CompaniesService {
             },
         });
     }
-    findAll() {
-        return `This action returns all companies`;
+    async findAll(currentPage, limit, qs) {
+        const { filter, sort, population } = (0, api_query_params_1.default)(qs);
+        delete filter.page;
+        delete filter.limit;
+        const offset = (+currentPage - 1) * +limit;
+        const defaultLimit = +limit ? +limit : 10;
+        const totalItems = (await this.companyModel.find(filter)).length;
+        const totalPage = Math.ceil(totalItems / defaultLimit);
+        const result = await this.companyModel
+            .find(filter)
+            .skip(offset)
+            .sort(String(sort))
+            .limit(defaultLimit)
+            .populate(population)
+            .exec();
+        return {
+            meta: {
+                current: currentPage ? currentPage : 1,
+                pageSize: limit ? limit : 10,
+                pages: totalPage,
+                total: totalItems,
+            },
+            result,
+        };
     }
     findOne(id) {
         return `This action returns a #${id} company`;

@@ -36,7 +36,21 @@ export declare class CompaniesController {
     } & Required<{
         _id: import("mongoose").Types.ObjectId;
     }>>;
-    findAll(): string;
+    findAll(currentPage: string, limit: string, qs: string): Promise<{
+        meta: {
+            current: number;
+            pageSize: number;
+            pages: number;
+            total: number;
+        };
+        result: Omit<import("mongoose").Document<unknown, {}, import("mongoose").Document<unknown, {}, import("../schemas").Company> & import("../schemas").Company & {
+            _id: import("mongoose").Types.ObjectId;
+        }> & import("mongoose").Document<unknown, {}, import("../schemas").Company> & import("../schemas").Company & {
+            _id: import("mongoose").Types.ObjectId;
+        } & Required<{
+            _id: import("mongoose").Types.ObjectId;
+        }>, never>[];
+    }>;
     findOne(id: string): string;
     update(id: string, updateCompanyDto: UpdateCompanyDto, user: IUser): Promise<import("mongoose").UpdateWriteOpResult>;
     remove(id: string): string;
