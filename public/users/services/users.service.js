@@ -27,9 +27,6 @@ let UsersService = class UsersService {
             return hash;
         };
     }
-    findAll() {
-        return `Find User Success`;
-    }
     async create(addUser) {
         const hash = this.getHashPassword(addUser.password);
         const user = await this.UserModel.create({
@@ -53,6 +50,7 @@ let UsersService = class UsersService {
     }
     isValidPassword(password, hash) {
         return (0, bcryptjs_1.compareSync)(password, hash);
+        console.log('object');
     }
     remove(id) {
         if (!mongoose_2.default.Types.ObjectId.isValid(id))

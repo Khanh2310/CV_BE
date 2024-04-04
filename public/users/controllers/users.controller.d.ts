@@ -28,7 +28,6 @@ import { CreateUserDto, UpdateUserDto } from '../dto';
 export declare class UsersController {
     private readonly usersService;
     constructor(usersService: UsersService);
-    findAll(): string;
     create(addUser: CreateUserDto): Promise<import("mongoose").Document<unknown, {}, import("../schemas").User> & import("../schemas").User & {
         _id: import("mongoose").Types.ObjectId;
     }>;

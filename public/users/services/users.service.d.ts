@@ -29,7 +29,6 @@ export declare class UsersService {
     private UserModel;
     constructor(UserModel: Model<User>);
     getHashPassword: (Hashpassword: string) => string;
-    findAll(): string;
     create(addUser: CreateUserDto): Promise<mongoose.Document<unknown, {}, User> & User & {
         _id: mongoose.Types.ObjectId;
     }>;

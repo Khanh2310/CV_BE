@@ -21,9 +21,6 @@ let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
     }
-    findAll() {
-        return this.usersService.findAll();
-    }
     create(addUser) {
         return this.usersService.create(addUser);
     }
@@ -35,12 +32,6 @@ let UsersController = class UsersController {
     }
 };
 exports.UsersController = UsersController;
-__decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], UsersController.prototype, "findAll", null);
 __decorate([
     (0, customize_1.Public)(),
     (0, common_1.Post)(),
