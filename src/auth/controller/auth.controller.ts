@@ -7,14 +7,14 @@ import { JwtAuthGuard, LocalAuthGuard } from '../guards';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  // @Public()
+  @Public()
   @UseGuards(LocalAuthGuard)
   @Post('/login')
   async handleAuth(@Request() req) {
     return this.authService.login(req.user);
   }
 
-  // @Public()
+  @Public()
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req) {
