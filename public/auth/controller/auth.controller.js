@@ -39,6 +39,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "handleAuth", null);
 __decorate([
+    (0, customize_1.Public)(),
     (0, common_1.UseGuards)(guards_1.JwtAuthGuard),
     (0, common_1.Get)('profile'),
     __param(0, (0, common_1.Request)()),

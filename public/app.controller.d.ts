@@ -4,4 +4,5 @@ export declare class AppController {
     private readonly appService;
     private authService;
     constructor(appService: AppService, authService: AuthService);
+    getHello(): string;
 }
