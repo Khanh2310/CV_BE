@@ -16,7 +16,7 @@ exports.CompaniesController = void 0;
 const common_1 = require("@nestjs/common");
 const dto_1 = require("../dto");
 const services_1 = require("../services");
-const customize_1 = require("../../auth/customize");
+const decorator_1 = require("../../auth/decorator");
 let CompaniesController = class CompaniesController {
     constructor(companiesService) {
         this.companiesService = companiesService;
@@ -41,7 +41,7 @@ exports.CompaniesController = CompaniesController;
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, customize_1.User)()),
+    __param(1, (0, decorator_1.User)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dto_1.CreateCompanyDto, Object]),
     __metadata("design:returntype", void 0)
@@ -66,7 +66,7 @@ __decorate([
     (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
-    __param(2, (0, customize_1.User)()),
+    __param(2, (0, decorator_1.User)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, dto_1.UpdateCompanyDto, Object]),
     __metadata("design:returntype", void 0)

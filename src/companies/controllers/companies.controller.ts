@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { CreateCompanyDto, UpdateCompanyDto } from '../dto';
 import { CompaniesService } from '../services';
-import { User } from 'src/auth/customize';
+import { User } from 'src/auth/decorator';
 import { IUser } from 'src/users/types';
 
 @Controller('companies')
