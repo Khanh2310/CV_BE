@@ -48,7 +48,6 @@ __decorate([
 ], CompaniesController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    (0, decorator_1.ResponseMessage)('List of all companies with paginate'),
     __param(0, (0, common_1.Query)('page')),
     __param(1, (0, common_1.Query)('limit')),
     __param(2, (0, common_1.Query)()),

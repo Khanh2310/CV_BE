@@ -15,12 +15,16 @@ class CreateUserDto {
 }
 exports.CreateUserDto = CreateUserDto;
 __decorate([
-    (0, class_validator_1.IsEmail)(),
     (0, class_validator_1.IsNotEmpty)({ message: 'Email cannot be empty' }),
+    (0, class_validator_1.IsEmail)({}, { message: 'Email must be an email' }),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "email", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Password cannot be empty' }),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "password", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)({ message: 'Name cannot be empty' }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "name", void 0);
 //# sourceMappingURL=create-user.dto.js.map

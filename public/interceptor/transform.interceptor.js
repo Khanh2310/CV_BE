@@ -13,7 +13,7 @@ exports.TransformInterceptor = void 0;
 const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
 const rxjs_1 = require("rxjs");
-const decorator_1 = require("../auth/decorator");
+const utils_1 = require("../utils");
 let TransformInterceptor = class TransformInterceptor {
     constructor(reflector) {
         this.reflector = reflector;
@@ -21,8 +21,7 @@ let TransformInterceptor = class TransformInterceptor {
     intercept(context, next) {
         return next.handle().pipe((0, rxjs_1.map)((data) => ({
             statusCode: context.switchToHttp().getResponse().statusCode,
-            message: this.reflector.get(decorator_1.RESPONSE_MESSAGE, context.getHandler()) ||
-                '',
+            message: utils_1.HTTP_MESSAGE[context.switchToHttp().getResponse().statusCode],
             data: data,
         })));
     }

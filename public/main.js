@@ -5,14 +5,14 @@ const app_module_1 = require("./app.module");
 const config_1 = require("@nestjs/config");
 const common_1 = require("@nestjs/common");
 const jwt_auth_guard_1 = require("./auth/guards/jwt-auth.guard");
-const transform_interceptor_1 = require("./core/transform.interceptor");
+const interceptor_1 = require("./interceptor");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     const configServices = app.get(config_1.ConfigService);
     const reflector = app.get(core_1.Reflector);
     app.useGlobalGuards(new jwt_auth_guard_1.JwtAuthGuard(reflector));
     app.useGlobalPipes(new common_1.ValidationPipe());
-    app.useGlobalInterceptors(new transform_interceptor_1.TransformInterceptor(reflector));
+    app.useGlobalInterceptors(new interceptor_1.TransformInterceptor(reflector));
     app.enableCors({
         origin: '*',
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
