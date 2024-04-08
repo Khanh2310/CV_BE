@@ -39,7 +39,7 @@ export declare class UsersService {
         _id: mongoose.Types.ObjectId;
     }, {}, User, "findOne">;
     isValidPassword(password: string, hash: string): boolean;
-    remove(id: string): "user not found" | mongoose.Query<mongoose.mongo.DeleteResult, mongoose.Document<unknown, {}, User> & User & {
+    remove(id: string): "User not found" | mongoose.Query<mongoose.mongo.DeleteResult, mongoose.Document<unknown, {}, User> & User & {
         _id: mongoose.Types.ObjectId;
     }, {}, User, "deleteOne">;
 }

@@ -22,18 +22,39 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
 export type UserDocument = HydratedDocument<User>;
 export declare class User {
+    name: string;
     email: string;
     password: string;
-    name: string;
+    age: number;
+    gender: string;
     address: string;
-    phone: string;
-    age: Date;
+    company: {
+        _id: mongoose.Schema.Types.ObjectId;
+        name: string;
+    };
+    role: string;
+    refreshToken: string;
+    createAt: Date;
+    updatedAt: Date;
+    isDeleted: boolean;
+    createdBy: {
+        _id: mongoose.Schema.Types.ObjectId;
+        email: string;
+    };
+    updatedBy: {
+        _id: mongoose.Schema.Types.ObjectId;
+        email: string;
+    };
+    deletedBy: {
+        _id: mongoose.Schema.Types.ObjectId;
+        email: string;
+    };
 }
-export declare const UserSchema: import("mongoose").Schema<User, import("mongoose").Model<User, any, any, any, import("mongoose").Document<unknown, any, User> & User & {
-    _id: import("mongoose").Types.ObjectId;
-}, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, User, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<User>> & import("mongoose").FlatRecord<User> & {
-    _id: import("mongoose").Types.ObjectId;
+export declare const UserSchema: mongoose.Schema<User, mongoose.Model<User, any, any, any, mongoose.Document<unknown, any, User> & User & {
+    _id: mongoose.Types.ObjectId;
+}, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, User, mongoose.Document<unknown, {}, mongoose.FlatRecord<User>> & mongoose.FlatRecord<User> & {
+    _id: mongoose.Types.ObjectId;
 }>;

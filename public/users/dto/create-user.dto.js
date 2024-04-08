@@ -9,11 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateUserDto = void 0;
+exports.RegisterUserDto = exports.CreateUserDto = void 0;
+const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
+const mongoose_1 = require("mongoose");
+class Company {
+}
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", mongoose_1.default.Schema.Types.ObjectId)
+], Company.prototype, "_id", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], Company.prototype, "name", void 0);
 class CreateUserDto {
 }
 exports.CreateUserDto = CreateUserDto;
+__decorate([
+    (0, class_validator_1.IsNotEmpty)({ message: 'Name cannot be empty' }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "name", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Email cannot be empty' }),
     (0, class_validator_1.IsEmail)({}, { message: 'Email must be an email' }),
@@ -24,7 +40,54 @@ __decorate([
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "password", void 0);
 __decorate([
+    (0, class_validator_1.IsNotEmpty)({ message: 'Age cannot be empty' }),
+    __metadata("design:type", Number)
+], CreateUserDto.prototype, "age", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)({ message: 'Gender cannot be empty' }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "gender", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)({ message: 'Address cannot be empty' }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "address", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)({ message: 'Role cannot be empty' }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "role", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmptyObject)(),
+    (0, class_validator_1.IsObject)(),
+    (0, class_validator_1.ValidateNested)(),
+    (0, class_transformer_1.Type)(() => Company),
+    __metadata("design:type", Company)
+], CreateUserDto.prototype, "company", void 0);
+class RegisterUserDto {
+}
+exports.RegisterUserDto = RegisterUserDto;
+__decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Name cannot be empty' }),
     __metadata("design:type", String)
-], CreateUserDto.prototype, "name", void 0);
+], RegisterUserDto.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)({ message: 'Email cannot be empty' }),
+    (0, class_validator_1.IsEmail)({}, { message: 'Email must be an email' }),
+    __metadata("design:type", String)
+], RegisterUserDto.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)({ message: 'Password cannot be empty' }),
+    __metadata("design:type", String)
+], RegisterUserDto.prototype, "password", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)({ message: 'Age cannot be empty' }),
+    __metadata("design:type", Number)
+], RegisterUserDto.prototype, "age", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)({ message: 'Gender cannot be empty' }),
+    __metadata("design:type", String)
+], RegisterUserDto.prototype, "gender", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)({ message: 'Address cannot be empty' }),
+    __metadata("design:type", String)
+], RegisterUserDto.prototype, "address", void 0);
 //# sourceMappingURL=create-user.dto.js.map

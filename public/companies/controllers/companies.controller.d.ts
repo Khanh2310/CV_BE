@@ -53,5 +53,7 @@ export declare class CompaniesController {
     }>;
     findOne(id: string): string;
     update(id: string, updateCompanyDto: UpdateCompanyDto, user: IUser): Promise<import("mongoose").UpdateWriteOpResult>;
-    remove(id: string): string;
+    remove(id: string, user: IUser): Promise<{
+        deleted: number;
+    }>;
 }

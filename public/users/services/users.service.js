@@ -33,6 +33,9 @@ let UsersService = class UsersService {
             email: addUser.email,
             password: hash,
             name: addUser.name,
+            address: addUser.address,
+            age: addUser.age,
+            gender: addUser.gender,
         });
         return user;
     }
@@ -53,7 +56,7 @@ let UsersService = class UsersService {
     }
     remove(id) {
         if (!mongoose_2.default.Types.ObjectId.isValid(id))
-            return 'user not found';
+            return 'User not found';
         return this.UserModel.deleteOne({
             _id: id,
         });

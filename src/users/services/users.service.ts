@@ -22,6 +22,9 @@ export class UsersService {
       email: addUser.email,
       password: hash,
       name: addUser.name,
+      address: addUser.address,
+      age: addUser.age,
+      gender: addUser.gender,
     });
     return user;
   }
@@ -48,7 +51,7 @@ export class UsersService {
   }
 
   remove(id: string) {
-    if (!mongoose.Types.ObjectId.isValid(id)) return 'user not found';
+    if (!mongoose.Types.ObjectId.isValid(id)) return 'User not found';
 
     return this.UserModel.deleteOne({
       _id: id,
