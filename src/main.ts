@@ -13,6 +13,9 @@ async function bootstrap() {
   app.useGlobalGuards(new JwtAuthGuard(reflector));
   app.useGlobalPipes(new ValidationPipe());
 
+  // config version api
+  app.setGlobalPrefix('/v1/api');
+
   // useGlobalInterceptor
   app.useGlobalInterceptors(new TransformInterceptor(reflector));
 

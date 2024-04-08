@@ -12,6 +12,7 @@ async function bootstrap() {
     const reflector = app.get(core_1.Reflector);
     app.useGlobalGuards(new jwt_auth_guard_1.JwtAuthGuard(reflector));
     app.useGlobalPipes(new common_1.ValidationPipe());
+    app.setGlobalPrefix('/v1/api');
     app.useGlobalInterceptors(new interceptor_1.TransformInterceptor(reflector));
     app.enableCors({
         origin: '*',
