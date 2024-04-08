@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { CreateCompanyDto, UpdateCompanyDto } from '../dto';
 import { CompaniesService } from '../services';
-import { User } from 'src/auth/decorator';
+import { ResponseMessage, User } from 'src/auth/decorator';
 import { IUser } from 'src/users/types';
 
 @Controller('companies')
@@ -23,6 +23,7 @@ export class CompaniesController {
   }
 
   @Get()
+  @ResponseMessage('List of all companies with paginate')
   findAll(
     @Query('page') currentPage: string,
     @Query('limit') limit: string,

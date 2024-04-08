@@ -12,7 +12,7 @@ async function bootstrap() {
     const reflector = app.get(core_1.Reflector);
     app.useGlobalGuards(new jwt_auth_guard_1.JwtAuthGuard(reflector));
     app.useGlobalPipes(new common_1.ValidationPipe());
-    app.useGlobalInterceptors(new transform_interceptor_1.TransformInterceptor());
+    app.useGlobalInterceptors(new transform_interceptor_1.TransformInterceptor(reflector));
     app.enableCors({
         origin: '*',
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
