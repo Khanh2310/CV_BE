@@ -8,6 +8,7 @@ import { CreateUserDto, RegisterUserDto, UpdateUserDto } from '../dto';
 import { IUser } from '../types';
 import { User } from 'src/auth/decorator';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
+import aqp from 'api-query-params';
 @Injectable()
 export class UsersService {
   constructor(
@@ -126,5 +127,35 @@ export class UsersService {
     return await this.UserModel.findOne({
       _id: id,
     }).select('-password');
+  }
+
+  async findAll(currentPage: number, limit: number, qs: string) {
+    const { filter, sort, population } = aqp(qs);
+    delete filter.page;
+    delete filter.limit;
+
+    const offset = (+currentPage - 1) * +limit;
+    const defaultLimit = +limit ? +limit : 10;
+
+    const totalItems = (await this.UserModel.find(filter)).length;
+    const totalPage = Math.ceil(totalItems / defaultLimit);
+
+    const result = await this.UserModel.find(filter)
+      .skip(offset)
+      .sort(String(sort))
+      .limit(defaultLimit)
+      .populate(population)
+      .select('-password')
+      .exec();
+
+    return {
+      meta: {
+        current: currentPage ? currentPage : 1,
+        pageSize: limit ? limit : 10,
+        pages: totalPage,
+        total: totalItems,
+      },
+      result,
+    };
   }
 }

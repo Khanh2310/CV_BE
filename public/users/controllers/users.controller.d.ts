@@ -44,4 +44,19 @@ export declare class UsersController {
     } & Required<{
         _id: import("mongoose").Types.ObjectId;
     }>) | "User not found">;
+    findAll(currentPage: string, limit: string, qs: string): Promise<{
+        meta: {
+            current: number;
+            pageSize: number;
+            pages: number;
+            total: number;
+        };
+        result: Omit<import("mongoose").Document<unknown, {}, import("mongoose").Document<unknown, {}, import("../schemas").User> & import("../schemas").User & {
+            _id: import("mongoose").Types.ObjectId;
+        }> & import("mongoose").Document<unknown, {}, import("../schemas").User> & import("../schemas").User & {
+            _id: import("mongoose").Types.ObjectId;
+        } & Required<{
+            _id: import("mongoose").Types.ObjectId;
+        }>, never>[];
+    }>;
 }

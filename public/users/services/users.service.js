@@ -20,6 +20,7 @@ const bcryptjs_1 = require("bcryptjs");
 const schemas_1 = require("../schemas");
 const dto_1 = require("../dto");
 const decorator_1 = require("../../auth/decorator");
+const api_query_params_1 = require("api-query-params");
 let UsersService = class UsersService {
     constructor(UserModel) {
         this.UserModel = UserModel;
@@ -113,6 +114,31 @@ let UsersService = class UsersService {
         return await this.UserModel.findOne({
             _id: id,
         }).select('-password');
+    }
+    async findAll(currentPage, limit, qs) {
+        const { filter, sort, population } = (0, api_query_params_1.default)(qs);
+        delete filter.page;
+        delete filter.limit;
+        const offset = (+currentPage - 1) * +limit;
+        const defaultLimit = +limit ? +limit : 10;
+        const totalItems = (await this.UserModel.find(filter)).length;
+        const totalPage = Math.ceil(totalItems / defaultLimit);
+        const result = await this.UserModel.find(filter)
+            .skip(offset)
+            .sort(String(sort))
+            .limit(defaultLimit)
+            .populate(population)
+            .select('-password')
+            .exec();
+        return {
+            meta: {
+                current: currentPage ? currentPage : 1,
+                pageSize: limit ? limit : 10,
+                pages: totalPage,
+                total: totalItems,
+            },
+            result,
+        };
     }
 };
 exports.UsersService = UsersService;

@@ -6,6 +6,7 @@ import {
   Param,
   Delete,
   Get,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from '../services';
 import { CreateUserDto, UpdateUserDto } from '../dto';
@@ -40,5 +41,17 @@ export class UsersController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
+  }
+
+  // get all user
+
+  @Public()
+  @Get()
+  findAll(
+    @Query('page') currentPage: string,
+    @Query('limit') limit: string,
+    @Query() qs: string,
+  ) {
+    return this.usersService.findAll(+currentPage, +limit, qs);
   }
 }

@@ -69,4 +69,19 @@ export declare class UsersService {
     } & Required<{
         _id: mongoose.Types.ObjectId;
     }>) | "User not found">;
+    findAll(currentPage: number, limit: number, qs: string): Promise<{
+        meta: {
+            current: number;
+            pageSize: number;
+            pages: number;
+            total: number;
+        };
+        result: Omit<mongoose.Document<unknown, {}, mongoose.Document<unknown, {}, UserM> & UserM & {
+            _id: mongoose.Types.ObjectId;
+        }> & mongoose.Document<unknown, {}, UserM> & UserM & {
+            _id: mongoose.Types.ObjectId;
+        } & Required<{
+            _id: mongoose.Types.ObjectId;
+        }>, never>[];
+    }>;
 }

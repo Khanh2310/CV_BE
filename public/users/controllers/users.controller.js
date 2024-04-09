@@ -33,6 +33,9 @@ let UsersController = class UsersController {
     findOne(id) {
         return this.usersService.findOne(id);
     }
+    findAll(currentPage, limit, qs) {
+        return this.usersService.findAll(+currentPage, +limit, qs);
+    }
 };
 exports.UsersController = UsersController;
 __decorate([
@@ -68,6 +71,16 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findOne", null);
+__decorate([
+    (0, decorator_1.Public)(),
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)('page')),
+    __param(1, (0, common_1.Query)('limit')),
+    __param(2, (0, common_1.Query)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, String]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "findAll", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [services_1.UsersService])
