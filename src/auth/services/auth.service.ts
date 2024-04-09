@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import ms from 'ms';
 import { RegisterUserDto } from 'src/users/dto';
 import { UsersService } from 'src/users/services';
 import { IUser } from 'src/users/types';
