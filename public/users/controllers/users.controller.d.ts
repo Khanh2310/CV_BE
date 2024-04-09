@@ -34,13 +34,14 @@ export declare class UsersController {
         createdAt: Date;
     }>;
     update(id: string, updateUserDto: UpdateUserDto, user: IUser): Promise<import("mongoose").UpdateWriteOpResult>;
-    remove(id: string): "User not found" | import("mongoose").Query<import("mongodb").DeleteResult, import("mongoose").Document<unknown, {}, import("mongoose").Document<unknown, {}, import("../schemas").User> & import("../schemas").User & {
+    remove(id: string, user: IUser): Promise<"User not found" | {
+        deleted: number;
+    }>;
+    findOne(id: string): Promise<(import("mongoose").Document<unknown, {}, import("mongoose").Document<unknown, {}, import("../schemas").User> & import("../schemas").User & {
         _id: import("mongoose").Types.ObjectId;
     }> & import("mongoose").Document<unknown, {}, import("../schemas").User> & import("../schemas").User & {
         _id: import("mongoose").Types.ObjectId;
     } & Required<{
         _id: import("mongoose").Types.ObjectId;
-    }>, {}, import("mongoose").Document<unknown, {}, import("../schemas").User> & import("../schemas").User & {
-        _id: import("mongoose").Types.ObjectId;
-    }, "deleteOne">;
+    }>) | "User not found">;
 }

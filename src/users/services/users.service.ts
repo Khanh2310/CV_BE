@@ -78,10 +78,22 @@ export class UsersService {
     return compareSync(password, hash);
   }
 
-  remove(id: string) {
+  async remove(id: string, user: IUser) {
     if (!mongoose.Types.ObjectId.isValid(id)) return 'User not found';
 
-    return this.UserModel.deleteOne({
+    await this.UserModel.updateOne(
+      {
+        _id: id,
+      },
+      {
+        deletedBy: {
+          _id: user._id,
+          email: user.email,
+        },
+      },
+    );
+
+    return this.UserModel.softDelete({
       _id: id,
     });
   }
@@ -106,5 +118,13 @@ export class UsersService {
     });
 
     return newRegister;
+  }
+
+  async findOne(id: string) {
+    if (!mongoose.Types.ObjectId.isValid(id)) return 'User not found';
+
+    return await this.UserModel.findOne({
+      _id: id,
+    }).select('-password');
   }
 }

@@ -52,15 +52,9 @@ export declare class UsersService {
         _id: mongoose.Types.ObjectId;
     }, "findOne">;
     isValidPassword(password: string, hash: string): boolean;
-    remove(id: string): "User not found" | mongoose.Query<mongoose.mongo.DeleteResult, mongoose.Document<unknown, {}, mongoose.Document<unknown, {}, UserM> & UserM & {
-        _id: mongoose.Types.ObjectId;
-    }> & mongoose.Document<unknown, {}, UserM> & UserM & {
-        _id: mongoose.Types.ObjectId;
-    } & Required<{
-        _id: mongoose.Types.ObjectId;
-    }>, {}, mongoose.Document<unknown, {}, UserM> & UserM & {
-        _id: mongoose.Types.ObjectId;
-    }, "deleteOne">;
+    remove(id: string, user: IUser): Promise<"User not found" | {
+        deleted: number;
+    }>;
     register(user: RegisterUserDto): Promise<mongoose.Document<unknown, {}, mongoose.Document<unknown, {}, UserM> & UserM & {
         _id: mongoose.Types.ObjectId;
     }> & mongoose.Document<unknown, {}, UserM> & UserM & {
@@ -68,4 +62,11 @@ export declare class UsersService {
     } & Required<{
         _id: mongoose.Types.ObjectId;
     }>>;
+    findOne(id: string): Promise<(mongoose.Document<unknown, {}, mongoose.Document<unknown, {}, UserM> & UserM & {
+        _id: mongoose.Types.ObjectId;
+    }> & mongoose.Document<unknown, {}, UserM> & UserM & {
+        _id: mongoose.Types.ObjectId;
+    } & Required<{
+        _id: mongoose.Types.ObjectId;
+    }>) | "User not found">;
 }

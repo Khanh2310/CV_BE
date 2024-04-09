@@ -27,8 +27,11 @@ let UsersController = class UsersController {
     update(id, updateUserDto, user) {
         return this.usersService.update(id, updateUserDto, user);
     }
-    remove(id) {
-        return this.usersService.remove(id);
+    remove(id, user) {
+        return this.usersService.remove(id, user);
+    }
+    findOne(id) {
+        return this.usersService.findOne(id);
     }
 };
 exports.UsersController = UsersController;
@@ -53,10 +56,19 @@ __decorate([
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, decorator_1.User)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "remove", null);
+__decorate([
+    (0, decorator_1.Public)(),
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], UsersController.prototype, "remove", null);
+], UsersController.prototype, "findOne", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [services_1.UsersService])

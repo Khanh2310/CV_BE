@@ -74,10 +74,18 @@ let UsersService = class UsersService {
     isValidPassword(password, hash) {
         return (0, bcryptjs_1.compareSync)(password, hash);
     }
-    remove(id) {
+    async remove(id, user) {
         if (!mongoose_2.default.Types.ObjectId.isValid(id))
             return 'User not found';
-        return this.UserModel.deleteOne({
+        await this.UserModel.updateOne({
+            _id: id,
+        }, {
+            deletedBy: {
+                _id: user._id,
+                email: user.email,
+            },
+        });
+        return this.UserModel.softDelete({
             _id: id,
         });
     }
@@ -98,6 +106,13 @@ let UsersService = class UsersService {
             role: 'USER',
         });
         return newRegister;
+    }
+    async findOne(id) {
+        if (!mongoose_2.default.Types.ObjectId.isValid(id))
+            return 'User not found';
+        return await this.UserModel.findOne({
+            _id: id,
+        }).select('-password');
     }
 };
 exports.UsersService = UsersService;
