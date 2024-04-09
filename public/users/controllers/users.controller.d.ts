@@ -25,14 +25,22 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { UsersService } from '../services';
 import { CreateUserDto, UpdateUserDto } from '../dto';
+import { IUser } from '../types';
 export declare class UsersController {
     private readonly usersService;
     constructor(usersService: UsersService);
-    create(addUser: CreateUserDto): Promise<import("mongoose").Document<unknown, {}, import("../schemas").User> & import("../schemas").User & {
+    create(createUserDto: CreateUserDto, user: IUser): Promise<{
         _id: import("mongoose").Types.ObjectId;
+        createdAt: Date;
     }>;
     update(id: string, updateUserDto: UpdateUserDto): Promise<import("mongoose").UpdateWriteOpResult>;
-    remove(id: string): "User not found" | import("mongoose").Query<import("mongodb").DeleteResult, import("mongoose").Document<unknown, {}, import("../schemas").User> & import("../schemas").User & {
+    remove(id: string): "User not found" | import("mongoose").Query<import("mongodb").DeleteResult, import("mongoose").Document<unknown, {}, import("mongoose").Document<unknown, {}, import("../schemas").User> & import("../schemas").User & {
         _id: import("mongoose").Types.ObjectId;
-    }, {}, import("../schemas").User, "deleteOne">;
+    }> & import("mongoose").Document<unknown, {}, import("../schemas").User> & import("../schemas").User & {
+        _id: import("mongoose").Types.ObjectId;
+    } & Required<{
+        _id: import("mongoose").Types.ObjectId;
+    }>, {}, import("mongoose").Document<unknown, {}, import("../schemas").User> & import("../schemas").User & {
+        _id: import("mongoose").Types.ObjectId;
+    }, "deleteOne">;
 }

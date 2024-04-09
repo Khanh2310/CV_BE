@@ -21,8 +21,8 @@ let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
     }
-    create(addUser) {
-        return this.usersService.create(addUser);
+    create(createUserDto, user) {
+        return this.usersService.create(createUserDto, user);
     }
     update(id, updateUserDto) {
         return this.usersService.update(id, updateUserDto);
@@ -36,8 +36,9 @@ __decorate([
     (0, decorator_1.Public)(),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, decorator_1.User)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dto_1.CreateUserDto]),
+    __metadata("design:paramtypes", [dto_1.CreateUserDto, Object]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "create", null);
 __decorate([

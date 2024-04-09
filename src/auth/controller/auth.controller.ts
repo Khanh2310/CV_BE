@@ -1,7 +1,15 @@
-import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { Public } from '../decorator';
 import { AuthService } from '../services';
 import { JwtAuthGuard, LocalAuthGuard } from '../guards';
+import { RegisterUserDto } from 'src/users/dto';
 
 @Controller('auth')
 export class AuthController {
@@ -18,5 +26,11 @@ export class AuthController {
   @Get('/profile')
   getProfile(@Request() req) {
     return req.user;
+  }
+
+  @Public() // Không muốn check token thì thêm Public
+  @Post('/register')
+  handleRegister(@Body() registerUserDto: RegisterUserDto) {
+    return this.authService.register(registerUserDto);
   }
 }

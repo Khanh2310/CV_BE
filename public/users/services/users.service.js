@@ -18,6 +18,8 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const bcryptjs_1 = require("bcryptjs");
 const schemas_1 = require("../schemas");
+const dto_1 = require("../dto");
+const decorator_1 = require("../../auth/decorator");
 let UsersService = class UsersService {
     constructor(UserModel) {
         this.UserModel = UserModel;
@@ -27,17 +29,31 @@ let UsersService = class UsersService {
             return hash;
         };
     }
-    async create(addUser) {
-        const hash = this.getHashPassword(addUser.password);
-        const user = await this.UserModel.create({
-            email: addUser.email,
-            password: hash,
-            name: addUser.name,
-            address: addUser.address,
-            age: addUser.age,
-            gender: addUser.gender,
+    async create(createUserDto, user) {
+        const { name, email, password, age, gender, address, role, company } = createUserDto;
+        const hashPassword = this.getHashPassword(createUserDto.password);
+        const isExit = await this.UserModel.findOne({ email });
+        if (isExit) {
+            throw new common_1.BadRequestException(`Email: ${email} already exits`);
+        }
+        const newUser = await this.UserModel.create({
+            name,
+            email,
+            password: hashPassword,
+            age,
+            gender,
+            address,
+            role,
+            company,
+            createdBy: {
+                _id: user?._id,
+                email: user?.email,
+            },
         });
-        return user;
+        return {
+            _id: newUser._id,
+            createdAt: newUser.createdAt,
+        };
     }
     async update(id, updateUserDto) {
         return await this.UserModel.updateOne({
@@ -61,11 +77,35 @@ let UsersService = class UsersService {
             _id: id,
         });
     }
+    async register(user) {
+        const { name, email, password, age, gender, address } = user;
+        const isExit = await this.UserModel.findOne({ email });
+        if (isExit) {
+            throw new common_1.BadRequestException(`Email: ${email} already exits`);
+        }
+        const hashPassword = this.getHashPassword(password);
+        const newRegister = await this.UserModel.create({
+            name,
+            email,
+            password: hashPassword,
+            age,
+            gender,
+            address,
+            role: 'USER',
+        });
+        return newRegister;
+    }
 };
 exports.UsersService = UsersService;
+__decorate([
+    __param(1, (0, decorator_1.User)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [dto_1.CreateUserDto, Object]),
+    __metadata("design:returntype", Promise)
+], UsersService.prototype, "create", null);
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(schemas_1.User.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __metadata("design:paramtypes", [Object])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map

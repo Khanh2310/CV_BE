@@ -22,24 +22,50 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import mongoose, { Model } from 'mongoose';
-import { User } from '../schemas';
-import { CreateUserDto, UpdateUserDto } from '../dto';
+import mongoose from 'mongoose';
+import { User as UserM, UserDocument } from '../schemas';
+import { CreateUserDto, RegisterUserDto, UpdateUserDto } from '../dto';
+import { IUser } from '../types';
+import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 export declare class UsersService {
     private UserModel;
-    constructor(UserModel: Model<User>);
+    constructor(UserModel: SoftDeleteModel<UserDocument>);
     getHashPassword: (Hashpassword: string) => string;
-    create(addUser: CreateUserDto): Promise<mongoose.Document<unknown, {}, User> & User & {
+    create(createUserDto: CreateUserDto, user: IUser): Promise<{
         _id: mongoose.Types.ObjectId;
+        createdAt: Date;
     }>;
     update(id: string, updateUserDto: UpdateUserDto): Promise<mongoose.UpdateWriteOpResult>;
-    findOneByUserName(username: string): mongoose.Query<mongoose.Document<unknown, {}, User> & User & {
+    findOneByUserName(username: string): mongoose.Query<mongoose.Document<unknown, {}, mongoose.Document<unknown, {}, UserM> & UserM & {
         _id: mongoose.Types.ObjectId;
-    }, mongoose.Document<unknown, {}, User> & User & {
+    }> & mongoose.Document<unknown, {}, UserM> & UserM & {
         _id: mongoose.Types.ObjectId;
-    }, {}, User, "findOne">;
+    } & Required<{
+        _id: mongoose.Types.ObjectId;
+    }>, mongoose.Document<unknown, {}, mongoose.Document<unknown, {}, UserM> & UserM & {
+        _id: mongoose.Types.ObjectId;
+    }> & mongoose.Document<unknown, {}, UserM> & UserM & {
+        _id: mongoose.Types.ObjectId;
+    } & Required<{
+        _id: mongoose.Types.ObjectId;
+    }>, {}, mongoose.Document<unknown, {}, UserM> & UserM & {
+        _id: mongoose.Types.ObjectId;
+    }, "findOne">;
     isValidPassword(password: string, hash: string): boolean;
-    remove(id: string): "User not found" | mongoose.Query<mongoose.mongo.DeleteResult, mongoose.Document<unknown, {}, User> & User & {
+    remove(id: string): "User not found" | mongoose.Query<mongoose.mongo.DeleteResult, mongoose.Document<unknown, {}, mongoose.Document<unknown, {}, UserM> & UserM & {
         _id: mongoose.Types.ObjectId;
-    }, {}, User, "deleteOne">;
+    }> & mongoose.Document<unknown, {}, UserM> & UserM & {
+        _id: mongoose.Types.ObjectId;
+    } & Required<{
+        _id: mongoose.Types.ObjectId;
+    }>, {}, mongoose.Document<unknown, {}, UserM> & UserM & {
+        _id: mongoose.Types.ObjectId;
+    }, "deleteOne">;
+    register(user: RegisterUserDto): Promise<mongoose.Document<unknown, {}, mongoose.Document<unknown, {}, UserM> & UserM & {
+        _id: mongoose.Types.ObjectId;
+    }> & mongoose.Document<unknown, {}, UserM> & UserM & {
+        _id: mongoose.Types.ObjectId;
+    } & Required<{
+        _id: mongoose.Types.ObjectId;
+    }>>;
 }

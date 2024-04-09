@@ -41,7 +41,7 @@ export class User {
   refreshToken: string;
 
   @Prop()
-  createAt: Date;
+  createdAt: Date;
 
   @Prop()
   updatedAt: Date;

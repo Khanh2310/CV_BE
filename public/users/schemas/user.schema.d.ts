@@ -37,7 +37,7 @@ export declare class User {
     };
     role: string;
     refreshToken: string;
-    createAt: Date;
+    createdAt: Date;
     updatedAt: Date;
     isDeleted: boolean;
     createdBy: {
