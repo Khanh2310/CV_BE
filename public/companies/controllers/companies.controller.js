@@ -47,6 +47,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CompaniesController.prototype, "create", null);
 __decorate([
+    (0, decorator_1.Public)(),
     (0, common_1.Get)(),
     __param(0, (0, common_1.Query)('page')),
     __param(1, (0, common_1.Query)('limit')),

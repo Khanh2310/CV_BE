@@ -16,7 +16,6 @@ import { IUser } from '../types';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Public()
   @Post()
   create(@Body() createUserDto: CreateUserDto, @User() user: IUser) {
     return this.usersService.create(createUserDto, user);
@@ -36,6 +35,7 @@ export class UsersController {
     return this.usersService.remove(id, user);
   }
 
+  // find user by Id
   @Public()
   @Get(':id')
   findOne(@Param('id') id: string) {
