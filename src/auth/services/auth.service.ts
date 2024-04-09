@@ -50,6 +50,7 @@ export class AuthService {
       httpOnly: true,
       maxAge: this.configService.get<number>('JWT_REFRESH_EXPIRESIN'),
     });
+
     return {
       access_token: this.jwtService.sign(payload),
       user: {
