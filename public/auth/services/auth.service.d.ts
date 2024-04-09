@@ -25,6 +25,7 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { Response } from 'express';
 import { RegisterUserDto } from 'src/users/dto';
 import { UsersService } from 'src/users/services';
 import { IUser } from 'src/users/types';
@@ -34,9 +35,8 @@ export declare class AuthService {
     private configService;
     constructor(usersService: UsersService, jwtService: JwtService, configService: ConfigService);
     validateUser(username: string, pass: string): Promise<any>;
-    login(user: IUser): Promise<{
+    login(user: IUser, response: Response): Promise<{
         access_token: string;
-        refresh_token: string;
         user: {
             _id: string;
             name: string;

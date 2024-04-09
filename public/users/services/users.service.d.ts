@@ -84,4 +84,5 @@ export declare class UsersService {
             _id: mongoose.Types.ObjectId;
         }>, never>[];
     }>;
+    updateRefreshToken(refreshToken: string, _id: string): Promise<mongoose.UpdateWriteOpResult>;
 }

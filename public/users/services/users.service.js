@@ -140,6 +140,13 @@ let UsersService = class UsersService {
             result,
         };
     }
+    async updateRefreshToken(refreshToken, _id) {
+        return await this.UserModel.updateOne({
+            _id,
+        }, {
+            refreshToken,
+        });
+    }
 };
 exports.UsersService = UsersService;
 __decorate([

@@ -30,7 +30,7 @@ let AuthService = class AuthService {
         }
         return null;
     }
-    async login(user) {
+    async login(user, response) {
         const { _id, name, email, role } = user;
         const payload = {
             sub: 'token login',
@@ -41,9 +41,13 @@ let AuthService = class AuthService {
             role,
         };
         const refresh_token = this.createRefreshToken(payload);
+        await this.usersService.updateRefreshToken(refresh_token, _id);
+        response.cookie('refresh_token', refresh_token, {
+            httpOnly: true,
+            maxAge: this.configService.get('JWT_REFRESH_EXPIRESIN'),
+        });
         return {
             access_token: this.jwtService.sign(payload),
-            refresh_token: refresh_token,
             user: {
                 _id,
                 name,

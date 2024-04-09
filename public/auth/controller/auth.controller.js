@@ -22,8 +22,8 @@ let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
-    async handleAuth(req) {
-        return await this.authService.login(req.user);
+    async handleAuth(req, response) {
+        return await this.authService.login(req.user, response);
     }
     getProfile(req) {
         return req.user;
@@ -37,9 +37,10 @@ __decorate([
     (0, decorator_1.Public)(),
     (0, common_1.UseGuards)(guards_1.LocalAuthGuard),
     (0, common_1.Post)('/login'),
-    __param(0, (0, common_1.Request)()),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Res)({ passthrough: true })),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "handleAuth", null);
 __decorate([

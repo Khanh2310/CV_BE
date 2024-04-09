@@ -158,4 +158,15 @@ export class UsersService {
       result,
     };
   }
+
+  async updateRefreshToken(refreshToken: string, _id: string) {
+    return await this.UserModel.updateOne(
+      {
+        _id,
+      },
+      {
+        refreshToken,
+      },
+    );
+  }
 }

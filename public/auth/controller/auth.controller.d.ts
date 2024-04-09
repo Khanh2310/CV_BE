@@ -25,12 +25,12 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { AuthService } from '../services';
 import { RegisterUserDto } from 'src/users/dto';
+import { Response } from 'express';
 export declare class AuthController {
     private readonly authService;
     constructor(authService: AuthService);
-    handleAuth(req: any): Promise<{
+    handleAuth(req: any, response: Response): Promise<{
         access_token: string;
-        refresh_token: string;
         user: {
             _id: string;
             name: string;

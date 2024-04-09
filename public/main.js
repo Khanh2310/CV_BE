@@ -6,6 +6,7 @@ const config_1 = require("@nestjs/config");
 const common_1 = require("@nestjs/common");
 const jwt_auth_guard_1 = require("./auth/guards/jwt-auth.guard");
 const interceptor_1 = require("./interceptor");
+const cookieParser = require("cookie-parser");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     const configServices = app.get(config_1.ConfigService);
@@ -20,6 +21,7 @@ async function bootstrap() {
         preflightContinue: false,
         optionsSuccessStatus: 204,
     });
+    app.use(cookieParser());
     await app.listen(configServices.get('PORT'));
 }
 bootstrap();
