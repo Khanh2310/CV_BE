@@ -33,7 +33,7 @@ export declare class UsersController {
         _id: import("mongoose").Types.ObjectId;
         createdAt: Date;
     }>;
-    update(id: string, updateUserDto: UpdateUserDto): Promise<import("mongoose").UpdateWriteOpResult>;
+    update(id: string, updateUserDto: UpdateUserDto, user: IUser): Promise<import("mongoose").UpdateWriteOpResult>;
     remove(id: string): "User not found" | import("mongoose").Query<import("mongodb").DeleteResult, import("mongoose").Document<unknown, {}, import("mongoose").Document<unknown, {}, import("../schemas").User> & import("../schemas").User & {
         _id: import("mongoose").Types.ObjectId;
     }> & import("mongoose").Document<unknown, {}, import("../schemas").User> & import("../schemas").User & {

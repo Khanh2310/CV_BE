@@ -55,11 +55,15 @@ let UsersService = class UsersService {
             createdAt: newUser.createdAt,
         };
     }
-    async update(id, updateUserDto) {
+    async update(id, updateUserDto, user) {
         return await this.UserModel.updateOne({
             _id: updateUserDto._id,
         }, {
             ...updateUserDto,
+            updatedBy: {
+                _id: user._id,
+                email: user.email,
+            },
         });
     }
     findOneByUserName(username) {

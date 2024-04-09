@@ -35,7 +35,7 @@ export declare class UsersService {
         _id: mongoose.Types.ObjectId;
         createdAt: Date;
     }>;
-    update(id: string, updateUserDto: UpdateUserDto): Promise<mongoose.UpdateWriteOpResult>;
+    update(id: string, updateUserDto: UpdateUserDto, user: IUser): Promise<mongoose.UpdateWriteOpResult>;
     findOneByUserName(username: string): mongoose.Query<mongoose.Document<unknown, {}, mongoose.Document<unknown, {}, UserM> & UserM & {
         _id: mongoose.Types.ObjectId;
     }> & mongoose.Document<unknown, {}, UserM> & UserM & {

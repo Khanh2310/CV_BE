@@ -49,15 +49,21 @@ export class UsersService {
       _id: newUser._id,
       createdAt: newUser.createdAt,
     };
+
+    // newUser
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto, user: IUser) {
     return await this.UserModel.updateOne(
       {
         _id: updateUserDto._id,
       },
       {
         ...updateUserDto,
+        updatedBy: {
+          _id: user._id,
+          email: user.email,
+        },
       },
     );
   }
