@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import ms from 'ms';
 import { RegisterUserDto } from 'src/users/dto';
 import { UsersService } from 'src/users/services';
 import { IUser } from 'src/users/types';
@@ -9,6 +11,7 @@ export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
+    private configService: ConfigService,
   ) {}
 
   // Khi chúng ta login thì nó sẽ chạy vào hàm này. Và trả về cho chúng ta username và pass
@@ -37,12 +40,17 @@ export class AuthService {
       role,
     };
 
+    const refresh_token = this.createRefreshToken(payload);
+
     return {
       access_token: this.jwtService.sign(payload),
-      _id,
-      name,
-      email,
-      role,
+      refresh_token: refresh_token,
+      user: {
+        _id,
+        name,
+        email,
+        role,
+      },
     };
   }
 
@@ -53,5 +61,14 @@ export class AuthService {
       _id: newUser?._id,
       createdAt: newUser?.createdAt,
     };
+  }
+
+  createRefreshToken(payload) {
+    const refresh_token = this.jwtService.sign(payload, {
+      secret: this.configService.get<string>('JWT_REFRESH_TOKEN_SECRET'),
+      expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRESIN'),
+    });
+
+    return refresh_token;
   }
 }

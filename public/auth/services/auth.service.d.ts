@@ -23,6 +23,7 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
+import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { RegisterUserDto } from 'src/users/dto';
 import { UsersService } from 'src/users/services';
@@ -30,17 +31,22 @@ import { IUser } from 'src/users/types';
 export declare class AuthService {
     private usersService;
     private jwtService;
-    constructor(usersService: UsersService, jwtService: JwtService);
+    private configService;
+    constructor(usersService: UsersService, jwtService: JwtService, configService: ConfigService);
     validateUser(username: string, pass: string): Promise<any>;
     login(user: IUser): Promise<{
         access_token: string;
-        _id: string;
-        name: string;
-        email: string;
-        role: string;
+        refresh_token: string;
+        user: {
+            _id: string;
+            name: string;
+            email: string;
+            role: string;
+        };
     }>;
     register(user: RegisterUserDto): Promise<{
         _id: import("mongoose").Types.ObjectId;
         createdAt: Date;
     }>;
+    createRefreshToken(payload: any): string;
 }

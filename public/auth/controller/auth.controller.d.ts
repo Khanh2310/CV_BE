@@ -30,10 +30,13 @@ export declare class AuthController {
     constructor(authService: AuthService);
     handleAuth(req: any): Promise<{
         access_token: string;
-        _id: string;
-        name: string;
-        email: string;
-        role: string;
+        refresh_token: string;
+        user: {
+            _id: string;
+            name: string;
+            email: string;
+            role: string;
+        };
     }>;
     getProfile(req: any): any;
     handleRegister(registerUserDto: RegisterUserDto): Promise<{

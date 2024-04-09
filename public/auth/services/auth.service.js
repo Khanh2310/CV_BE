@@ -11,12 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
 const jwt_1 = require("@nestjs/jwt");
 const services_1 = require("../../users/services");
 let AuthService = class AuthService {
-    constructor(usersService, jwtService) {
+    constructor(usersService, jwtService, configService) {
         this.usersService = usersService;
         this.jwtService = jwtService;
+        this.configService = configService;
     }
     async validateUser(username, pass) {
         const user = await this.usersService.findOneByUserName(username);
@@ -38,12 +40,16 @@ let AuthService = class AuthService {
             email,
             role,
         };
+        const refresh_token = this.createRefreshToken(payload);
         return {
             access_token: this.jwtService.sign(payload),
-            _id,
-            name,
-            email,
-            role,
+            refresh_token: refresh_token,
+            user: {
+                _id,
+                name,
+                email,
+                role,
+            },
         };
     }
     async register(user) {
@@ -53,11 +59,19 @@ let AuthService = class AuthService {
             createdAt: newUser?.createdAt,
         };
     }
+    createRefreshToken(payload) {
+        const refresh_token = this.jwtService.sign(payload, {
+            secret: this.configService.get('JWT_REFRESH_TOKEN_SECRET'),
+            expiresIn: this.configService.get('JWT_REFRESH_EXPIRESIN'),
+        });
+        return refresh_token;
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [services_1.UsersService,
-        jwt_1.JwtService])
+        jwt_1.JwtService,
+        config_1.ConfigService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map
