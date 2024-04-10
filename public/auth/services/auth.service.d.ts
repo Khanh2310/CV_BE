@@ -49,5 +49,13 @@ export declare class AuthService {
         createdAt: Date;
     }>;
     createRefreshToken(payload: any): string;
-    processRefreshToken(refreshToken: string): void;
+    processRefreshToken(refreshToken: string, response: Response): Promise<{
+        access_token: string;
+        user: {
+            _id: import("mongoose").Types.ObjectId;
+            name: string;
+            email: string;
+            role: string;
+        };
+    }>;
 }

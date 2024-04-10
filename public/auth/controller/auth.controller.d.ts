@@ -47,5 +47,13 @@ export declare class AuthController {
     handleAccount(user: IUser): {
         user: IUser;
     };
-    handleRefreshToken(req: any): void;
+    handleRefreshToken(req: any, response: Response): Promise<{
+        access_token: string;
+        user: {
+            _id: import("mongoose").Types.ObjectId;
+            name: string;
+            email: string;
+            role: string;
+        };
+    }>;
 }

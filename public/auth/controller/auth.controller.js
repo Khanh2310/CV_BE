@@ -34,9 +34,9 @@ let AuthController = class AuthController {
     handleAccount(user) {
         return { user };
     }
-    handleRefreshToken(req) {
+    handleRefreshToken(req, response) {
         const refreshToken = req.cookies['refresh_token'];
-        return this.authService.processRefreshToken(refreshToken);
+        return this.authService.processRefreshToken(refreshToken, response);
     }
 };
 exports.AuthController = AuthController;
@@ -77,8 +77,9 @@ __decorate([
     (0, decorator_1.Public)(),
     (0, common_1.Get)('/refresh'),
     __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Res)({ passthrough: true })),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "handleRefreshToken", null);
 exports.AuthController = AuthController = __decorate([

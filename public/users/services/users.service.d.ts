@@ -85,4 +85,11 @@ export declare class UsersService {
         }>, never>[];
     }>;
     updateRefreshToken(refreshToken: string, _id: string): Promise<mongoose.UpdateWriteOpResult>;
+    findUserByRefreshToken(refreshToken: string): Promise<mongoose.Document<unknown, {}, mongoose.Document<unknown, {}, UserM> & UserM & {
+        _id: mongoose.Types.ObjectId;
+    }> & mongoose.Document<unknown, {}, UserM> & UserM & {
+        _id: mongoose.Types.ObjectId;
+    } & Required<{
+        _id: mongoose.Types.ObjectId;
+    }>>;
 }

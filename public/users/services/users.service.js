@@ -147,6 +147,9 @@ let UsersService = class UsersService {
             refreshToken,
         });
     }
+    async findUserByRefreshToken(refreshToken) {
+        return await this.UserModel.findOne({ refreshToken });
+    }
 };
 exports.UsersService = UsersService;
 __decorate([

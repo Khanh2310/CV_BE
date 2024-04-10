@@ -70,12 +70,42 @@ let AuthService = class AuthService {
         });
         return refresh_token;
     }
-    processRefreshToken(refreshToken) {
+    async processRefreshToken(refreshToken, response) {
         try {
-            const a = this.jwtService.verify(refreshToken, {
+            this.jwtService.verify(refreshToken, {
                 secret: this.configService.get('JWT_REFRESH_TOKEN_SECRET'),
             });
-            console.log(a);
+            const user = await this.usersService.findUserByRefreshToken(refreshToken);
+            if (user) {
+                const { _id, name, email, role } = user;
+                const payload = {
+                    sub: 'token refresh_token',
+                    iss: 'from server',
+                    _id,
+                    name,
+                    email,
+                    role,
+                };
+                const refresh_token = this.createRefreshToken(payload);
+                await this.usersService.updateRefreshToken(refresh_token, _id.toString());
+                response.clearCookie('refresh_token');
+                response.cookie('refresh_token', refresh_token, {
+                    httpOnly: true,
+                    maxAge: this.configService.get('JWT_REFRESH_EXPIRESIN'),
+                });
+                return {
+                    access_token: this.jwtService.sign(payload),
+                    user: {
+                        _id,
+                        name,
+                        email,
+                        role,
+                    },
+                };
+            }
+            else {
+                throw new common_1.BadRequestException();
+            }
         }
         catch (error) {
             throw new common_1.BadRequestException();

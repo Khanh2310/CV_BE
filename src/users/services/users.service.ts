@@ -169,4 +169,8 @@ export class UsersService {
       },
     );
   }
+
+  async findUserByRefreshToken(refreshToken: string) {
+    return await this.UserModel.findOne({ refreshToken });
+  }
 }
