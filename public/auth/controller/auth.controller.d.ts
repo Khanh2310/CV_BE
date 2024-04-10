@@ -26,6 +26,7 @@
 import { AuthService } from '../services';
 import { RegisterUserDto } from 'src/users/dto';
 import { Response } from 'express';
+import { IUser } from 'src/users/types';
 export declare class AuthController {
     private readonly authService;
     constructor(authService: AuthService);
@@ -43,4 +44,7 @@ export declare class AuthController {
         _id: import("mongoose").Types.ObjectId;
         createdAt: Date;
     }>;
+    handleAccount(user: IUser): {
+        user: IUser;
+    };
 }

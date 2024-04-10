@@ -31,6 +31,9 @@ let AuthController = class AuthController {
     handleRegister(registerUserDto) {
         return this.authService.register(registerUserDto);
     }
+    handleAccount(user) {
+        return { user };
+    }
 };
 exports.AuthController = AuthController;
 __decorate([
@@ -59,6 +62,13 @@ __decorate([
     __metadata("design:paramtypes", [dto_1.RegisterUserDto]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "handleRegister", null);
+__decorate([
+    (0, common_1.Get)('/account'),
+    __param(0, (0, decorator_1.User)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "handleAccount", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [services_1.AuthService])

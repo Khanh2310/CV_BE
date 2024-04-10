@@ -8,11 +8,12 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { Public } from '../decorator';
+import { Public, User } from '../decorator';
 import { AuthService } from '../services';
 import { JwtAuthGuard, LocalAuthGuard } from '../guards';
 import { RegisterUserDto } from 'src/users/dto';
 import { Response } from 'express';
+import { IUser } from 'src/users/types';
 
 @Controller('auth')
 export class AuthController {
@@ -35,5 +36,10 @@ export class AuthController {
   @Post('/register')
   handleRegister(@Body() registerUserDto: RegisterUserDto) {
     return this.authService.register(registerUserDto);
+  }
+
+  @Get('/account')
+  handleAccount(@User() user: IUser) {
+    return { user };
   }
 }
