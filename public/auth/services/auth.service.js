@@ -70,6 +70,17 @@ let AuthService = class AuthService {
         });
         return refresh_token;
     }
+    processRefreshToken(refreshToken) {
+        try {
+            const a = this.jwtService.verify(refreshToken, {
+                secret: this.configService.get('JWT_REFRESH_TOKEN_SECRET'),
+            });
+            console.log(a);
+        }
+        catch (error) {
+            throw new common_1.BadRequestException();
+        }
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([

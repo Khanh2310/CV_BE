@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
@@ -78,5 +78,16 @@ export class AuthService {
     });
 
     return refresh_token;
+  }
+
+  processRefreshToken(refreshToken: string) {
+    try {
+      const a = this.jwtService.verify(refreshToken, {
+        secret: this.configService.get<string>('JWT_REFRESH_TOKEN_SECRET'),
+      });
+      console.log(a);
+    } catch (error) {
+      throw new BadRequestException();
+    }
   }
 }

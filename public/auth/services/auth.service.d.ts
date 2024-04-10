@@ -49,4 +49,5 @@ export declare class AuthService {
         createdAt: Date;
     }>;
     createRefreshToken(payload: any): string;
+    processRefreshToken(refreshToken: string): void;
 }

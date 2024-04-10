@@ -25,11 +25,15 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { AuthService } from '../services';
 import { RegisterUserDto } from 'src/users/dto';
-import { Response } from 'express';
 import { IUser } from 'src/users/types';
+import { Response } from 'express';
 export declare class AuthController {
     private readonly authService;
     constructor(authService: AuthService);
+    handleRegister(registerUserDto: RegisterUserDto): Promise<{
+        _id: import("mongoose").Types.ObjectId;
+        createdAt: Date;
+    }>;
     handleAuth(req: any, response: Response): Promise<{
         access_token: string;
         user: {
@@ -40,11 +44,8 @@ export declare class AuthController {
         };
     }>;
     getProfile(req: any): any;
-    handleRegister(registerUserDto: RegisterUserDto): Promise<{
-        _id: import("mongoose").Types.ObjectId;
-        createdAt: Date;
-    }>;
     handleAccount(user: IUser): {
         user: IUser;
     };
+    handleRefreshToken(req: any): void;
 }

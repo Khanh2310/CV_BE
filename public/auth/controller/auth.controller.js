@@ -22,20 +22,32 @@ let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
+    handleRegister(registerUserDto) {
+        return this.authService.register(registerUserDto);
+    }
     async handleAuth(req, response) {
         return await this.authService.login(req.user, response);
     }
     getProfile(req) {
-        return req.user;
-    }
-    handleRegister(registerUserDto) {
-        return this.authService.register(registerUserDto);
+        return req.coo;
     }
     handleAccount(user) {
         return { user };
     }
+    handleRefreshToken(req) {
+        const refreshToken = req.cookies['refresh_token'];
+        return this.authService.processRefreshToken(refreshToken);
+    }
 };
 exports.AuthController = AuthController;
+__decorate([
+    (0, decorator_1.Public)(),
+    (0, common_1.Post)('/register'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [dto_1.RegisterUserDto]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "handleRegister", null);
 __decorate([
     (0, decorator_1.Public)(),
     (0, common_1.UseGuards)(guards_1.LocalAuthGuard),
@@ -55,20 +67,20 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "getProfile", null);
 __decorate([
-    (0, decorator_1.Public)(),
-    (0, common_1.Post)('/register'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dto_1.RegisterUserDto]),
-    __metadata("design:returntype", void 0)
-], AuthController.prototype, "handleRegister", null);
-__decorate([
     (0, common_1.Get)('/account'),
     __param(0, (0, decorator_1.User)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "handleAccount", null);
+__decorate([
+    (0, decorator_1.Public)(),
+    (0, common_1.Get)('/refresh'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "handleRefreshToken", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [services_1.AuthService])

@@ -12,12 +12,18 @@ import { Public, User } from '../decorator';
 import { AuthService } from '../services';
 import { JwtAuthGuard, LocalAuthGuard } from '../guards';
 import { RegisterUserDto } from 'src/users/dto';
-import { Response } from 'express';
 import { IUser } from 'src/users/types';
+import { Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  @Public() // Không muốn check token thì thêm Public
+  @Post('/register')
+  handleRegister(@Body() registerUserDto: RegisterUserDto) {
+    return this.authService.register(registerUserDto);
+  }
 
   @Public()
   @UseGuards(LocalAuthGuard)
@@ -29,17 +35,18 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('/profile')
   getProfile(@Request() req) {
-    return req.user;
-  }
-
-  @Public() // Không muốn check token thì thêm Public
-  @Post('/register')
-  handleRegister(@Body() registerUserDto: RegisterUserDto) {
-    return this.authService.register(registerUserDto);
+    return req.coo;
   }
 
   @Get('/account')
   handleAccount(@User() user: IUser) {
     return { user };
+  }
+
+  @Public()
+  @Get('/refresh')
+  handleRefreshToken(@Req() req) {
+    const refreshToken = req.cookies['refresh_token'];
+    return this.authService.processRefreshToken(refreshToken);
   }
 }
