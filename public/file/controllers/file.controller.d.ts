@@ -1,4 +1,4 @@
-import { FileService } from '../file.service';
+import { FileService } from '../services/file.service';
 import { CreateFileDto } from '../dto/create-file.dto';
 import { UpdateFileDto } from '../dto/update-file.dto';
 export declare class FileController {
