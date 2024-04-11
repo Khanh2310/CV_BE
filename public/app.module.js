@@ -16,6 +16,7 @@ const users_1 = require("./users");
 const auth_1 = require("./auth");
 const companies_1 = require("./companies");
 const soft_delete_plugin_mongoose_1 = require("soft-delete-plugin-mongoose");
+const jobs_1 = require("./jobs");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -38,6 +39,7 @@ exports.AppModule = AppModule = __decorate([
             users_1.UsersModule,
             auth_1.AuthModule,
             companies_1.CompaniesModule,
+            jobs_1.JobsModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
