@@ -29,7 +29,7 @@ let JobsController = class JobsController {
         return this.jobsService.findAll(+currentPage, +limit, qs);
     }
     findOne(id) {
-        return this.jobsService.findOne(+id);
+        return this.jobsService.findOne(id);
     }
     update(id, updateJobDto, user) {
         return this.jobsService.update(id, updateJobDto, user);
@@ -58,6 +58,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], JobsController.prototype, "findAll", null);
 __decorate([
+    (0, decorator_1.Public)(),
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),

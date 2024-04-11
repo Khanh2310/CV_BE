@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const schemas_1 = require("../schemas");
 const api_query_params_1 = require("api-query-params");
+const mongoose_2 = require("mongoose");
 let JobsService = class JobsService {
     constructor(jobsModel) {
         this.jobsModel = jobsModel;
@@ -75,8 +76,12 @@ let JobsService = class JobsService {
             result,
         };
     }
-    findOne(id) {
-        return `This action returns a #${id} job`;
+    async findOne(id) {
+        if (!mongoose_2.default.Types.ObjectId.isValid(id))
+            return 'Jobs Not Found';
+        return await this.jobsModel.findOne({
+            _id: id,
+        });
     }
     async update(id, updateJobDto, user) {
         const { startDate, endDate } = updateJobDto;

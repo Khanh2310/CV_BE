@@ -21,18 +21,18 @@
 /// <reference types="mongoose/types/utility" />
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
-/// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
 import { CreateJobDto } from '../dto/create-job.dto';
 import { UpdateJobDto } from '../dto/update-job.dto';
 import { IUser } from 'src/users/types';
 import { Jobs, JobsDocument } from '../schemas';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
+import mongoose from 'mongoose';
 export declare class JobsService {
     private jobsModel;
     constructor(jobsModel: SoftDeleteModel<JobsDocument>);
     create(createJobDto: CreateJobDto, user: IUser): Promise<{
-        _id: import("mongoose").Types.ObjectId;
+        _id: mongoose.Types.ObjectId;
         createdAt: Date;
     }>;
     findAll(currentPage: number, limit: number, qs: string): Promise<{
@@ -42,16 +42,22 @@ export declare class JobsService {
             pages: number;
             total: number;
         };
-        result: Omit<import("mongoose").Document<unknown, {}, import("mongoose").Document<unknown, {}, Jobs> & Jobs & {
-            _id: import("mongoose").Types.ObjectId;
-        }> & import("mongoose").Document<unknown, {}, Jobs> & Jobs & {
-            _id: import("mongoose").Types.ObjectId;
+        result: Omit<mongoose.Document<unknown, {}, mongoose.Document<unknown, {}, Jobs> & Jobs & {
+            _id: mongoose.Types.ObjectId;
+        }> & mongoose.Document<unknown, {}, Jobs> & Jobs & {
+            _id: mongoose.Types.ObjectId;
         } & Required<{
-            _id: import("mongoose").Types.ObjectId;
+            _id: mongoose.Types.ObjectId;
         }>, never>[];
     }>;
-    findOne(id: number): string;
-    update(id: string, updateJobDto: UpdateJobDto, user: IUser): Promise<import("mongoose").UpdateWriteOpResult>;
+    findOne(id: string): Promise<(mongoose.Document<unknown, {}, mongoose.Document<unknown, {}, Jobs> & Jobs & {
+        _id: mongoose.Types.ObjectId;
+    }> & mongoose.Document<unknown, {}, Jobs> & Jobs & {
+        _id: mongoose.Types.ObjectId;
+    } & Required<{
+        _id: mongoose.Types.ObjectId;
+    }>) | "Jobs Not Found">;
+    update(id: string, updateJobDto: UpdateJobDto, user: IUser): Promise<mongoose.UpdateWriteOpResult>;
     remove(id: string, user: IUser): Promise<{
         deleted: number;
     }>;
