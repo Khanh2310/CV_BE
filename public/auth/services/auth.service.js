@@ -111,6 +111,11 @@ let AuthService = class AuthService {
             throw new common_1.BadRequestException();
         }
     }
+    async logout(response, user) {
+        response.clearCookie('refresh_token');
+        await this.usersService.updateRefreshToken('', user._id);
+        return 'OK';
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([

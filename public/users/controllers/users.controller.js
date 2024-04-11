@@ -74,8 +74,8 @@ __decorate([
 __decorate([
     (0, decorator_1.Public)(),
     (0, common_1.Get)(),
-    __param(0, (0, common_1.Query)('page')),
-    __param(1, (0, common_1.Query)('limit')),
+    __param(0, (0, common_1.Query)('current')),
+    __param(1, (0, common_1.Query)('pageSize')),
     __param(2, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, String]),

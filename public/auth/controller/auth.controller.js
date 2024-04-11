@@ -29,7 +29,7 @@ let AuthController = class AuthController {
         return await this.authService.login(req.user, response);
     }
     getProfile(req) {
-        return req.coo;
+        return req.user;
     }
     handleAccount(user) {
         return { user };
@@ -37,6 +37,9 @@ let AuthController = class AuthController {
     handleRefreshToken(req, response) {
         const refreshToken = req.cookies['refresh_token'];
         return this.authService.processRefreshToken(refreshToken, response);
+    }
+    handleLogout(response, user) {
+        return this.authService.logout(response, user);
     }
 };
 exports.AuthController = AuthController;
@@ -82,6 +85,14 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "handleRefreshToken", null);
+__decorate([
+    (0, common_1.Post)('/logout'),
+    __param(0, (0, common_1.Res)({ passthrough: true })),
+    __param(1, (0, decorator_1.User)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "handleLogout", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [services_1.AuthService])

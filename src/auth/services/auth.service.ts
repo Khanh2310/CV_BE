@@ -127,4 +127,10 @@ export class AuthService {
       throw new BadRequestException();
     }
   }
+
+  async logout(response: Response, user: IUser) {
+    response.clearCookie('refresh_token');
+    await this.usersService.updateRefreshToken('', user._id);
+    return 'OK';
+  }
 }

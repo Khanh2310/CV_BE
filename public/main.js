@@ -16,10 +16,11 @@ async function bootstrap() {
     app.setGlobalPrefix('/v1/api');
     app.useGlobalInterceptors(new interceptor_1.TransformInterceptor(reflector));
     app.enableCors({
-        origin: '*',
+        origin: true,
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
         preflightContinue: false,
         optionsSuccessStatus: 204,
+        credentials: true,
     });
     app.use(cookieParser());
     await app.listen(configServices.get('PORT'));

@@ -56,4 +56,5 @@ export declare class AuthController {
             role: string;
         };
     }>;
+    handleLogout(response: Response, user: IUser): Promise<string>;
 }

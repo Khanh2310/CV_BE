@@ -35,7 +35,7 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('/profile')
   getProfile(@Request() req) {
-    return req.coo;
+    return req.user;
   }
 
   @Get('/account')
@@ -51,5 +51,13 @@ export class AuthController {
   ) {
     const refreshToken = req.cookies['refresh_token'];
     return this.authService.processRefreshToken(refreshToken, response);
+  }
+
+  @Post('/logout')
+  handleLogout(
+    @Res({ passthrough: true }) response: Response,
+    @User() user: IUser,
+  ) {
+    return this.authService.logout(response, user);
   }
 }

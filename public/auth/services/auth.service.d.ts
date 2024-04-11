@@ -58,4 +58,5 @@ export declare class AuthService {
             role: string;
         };
     }>;
+    logout(response: Response, user: IUser): Promise<string>;
 }
