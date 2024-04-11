@@ -10,11 +10,21 @@ exports.JobsModule = void 0;
 const common_1 = require("@nestjs/common");
 const jobs_service_1 = require("./services/jobs.service");
 const jobs_controller_1 = require("./controllers/jobs.controller");
+const mongoose_1 = require("@nestjs/mongoose");
+const schemas_1 = require("./schemas");
 let JobsModule = class JobsModule {
 };
 exports.JobsModule = JobsModule;
 exports.JobsModule = JobsModule = __decorate([
     (0, common_1.Module)({
+        imports: [
+            mongoose_1.MongooseModule.forFeature([
+                {
+                    name: schemas_1.Jobs.name,
+                    schema: schemas_1.JobsSchema,
+                },
+            ]),
+        ],
         controllers: [jobs_controller_1.JobsController],
         providers: [jobs_service_1.JobsService],
     })

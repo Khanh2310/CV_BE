@@ -23,8 +23,8 @@ __decorate([
     __metadata("design:type", Array)
 ], Jobs.prototype, "skills", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: Object }),
+    __metadata("design:type", Object)
 ], Jobs.prototype, "company", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
@@ -48,11 +48,11 @@ __decorate([
 ], Jobs.prototype, "description", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
-    __metadata("design:type", Object)
+    __metadata("design:type", Date)
 ], Jobs.prototype, "startDate", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
-    __metadata("design:type", Object)
+    __metadata("design:type", Date)
 ], Jobs.prototype, "endDate", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
@@ -60,15 +60,15 @@ __decorate([
 ], Jobs.prototype, "isActive", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
-    __metadata("design:type", Object)
+    __metadata("design:type", Date)
 ], Jobs.prototype, "createdAt", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
-    __metadata("design:type", Object)
+    __metadata("design:type", Date)
 ], Jobs.prototype, "updatedAt", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
-    __metadata("design:type", Object)
+    __metadata("design:type", Date)
 ], Jobs.prototype, "isDeleted", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ type: Object }),
@@ -79,7 +79,7 @@ __decorate([
     __metadata("design:type", Object)
 ], Jobs.prototype, "updatedBy", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, mongoose_1.Prop)({ type: Object }),
     __metadata("design:type", Object)
 ], Jobs.prototype, "deletedBy", void 0);
 exports.Jobs = Jobs = __decorate([
