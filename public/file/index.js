@@ -10,11 +10,18 @@ exports.FileModule = void 0;
 const common_1 = require("@nestjs/common");
 const file_service_1 = require("./services/file.service");
 const file_controller_1 = require("./controllers/file.controller");
+const platform_express_1 = require("@nestjs/platform-express");
+const file_config_1 = require("./config/file.config");
 let FileModule = class FileModule {
 };
 exports.FileModule = FileModule;
 exports.FileModule = FileModule = __decorate([
     (0, common_1.Module)({
+        imports: [
+            platform_express_1.MulterModule.registerAsync({
+                useClass: file_config_1.MulterConfigService
+            })
+        ],
         controllers: [file_controller_1.FileController],
         providers: [file_service_1.FileService],
     })
