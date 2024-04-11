@@ -15,14 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FileController = void 0;
 const common_1 = require("@nestjs/common");
 const file_service_1 = require("../services/file.service");
-const create_file_dto_1 = require("../dto/create-file.dto");
 const update_file_dto_1 = require("../dto/update-file.dto");
+const platform_express_1 = require("@nestjs/platform-express");
 let FileController = class FileController {
     constructor(fileService) {
         this.fileService = fileService;
     }
-    create(createFileDto) {
-        return this.fileService.create(createFileDto);
+    uploadFile(file) {
+        console.log(file);
     }
     findAll() {
         return this.fileService.findAll();
@@ -39,12 +39,22 @@ let FileController = class FileController {
 };
 exports.FileController = FileController;
 __decorate([
-    (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Post)('upload'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file')),
+    __param(0, (0, common_1.UploadedFile)(new common_1.ParseFilePipeBuilder()
+        .addFileTypeValidator({
+        fileType: /^(jpg|jpeg|png|image\/png|gif|txt|pdf|doc|docx|text\/plain)$/i,
+    })
+        .addMaxSizeValidator({
+        maxSize: 1024 * 1024
+    })
+        .build({
+        errorHttpStatusCode: common_1.HttpStatus.UNPROCESSABLE_ENTITY
+    }))),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_file_dto_1.CreateFileDto]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
-], FileController.prototype, "create", null);
+], FileController.prototype, "uploadFile", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
@@ -74,7 +84,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], FileController.prototype, "remove", null);
 exports.FileController = FileController = __decorate([
-    (0, common_1.Controller)('file'),
+    (0, common_1.Controller)('files'),
     __metadata("design:paramtypes", [file_service_1.FileService])
 ], FileController);
 //# sourceMappingURL=file.controller.js.map

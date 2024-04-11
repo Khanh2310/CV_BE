@@ -1,10 +1,10 @@
+/// <reference types="multer" />
 import { FileService } from '../services/file.service';
-import { CreateFileDto } from '../dto/create-file.dto';
 import { UpdateFileDto } from '../dto/update-file.dto';
 export declare class FileController {
     private readonly fileService;
     constructor(fileService: FileService);
-    create(createFileDto: CreateFileDto): string;
+    uploadFile(file: Express.Multer.File): void;
     findAll(): string;
     findOne(id: string): string;
     update(id: string, updateFileDto: UpdateFileDto): string;
