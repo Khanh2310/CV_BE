@@ -6,6 +6,7 @@ import { Resume, ResumeDocument } from '../schemas';
 import { InjectModel } from '@nestjs/mongoose';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import mongoose from 'mongoose';
+import aqp from 'api-query-params';
 
 @Injectable()
 export class ResumesService {
@@ -44,8 +45,35 @@ export class ResumesService {
     };
   }
 
-  findAll() {
-    return `This action returns all resumes`;
+  async findAll(currentPage: number, limit: number, qs: string) {
+    const { filter, sort, population } = aqp(qs);
+    delete filter.currentPage;
+    delete filter.pageSize;
+
+    const offset = (+currentPage - 1) * +limit;
+
+    const defaultLimit = +limit ? +limit : 10;
+
+    const totalItems = (await this.resumeModel.find(filter)).length;
+    const totalPages = Math.ceil(totalItems / defaultLimit);
+
+    const result = await this.resumeModel
+      .find(filter)
+      .skip(offset)
+      .limit(defaultLimit)
+      .sort(String(sort))
+      .populate(population)
+      .exec();
+
+    return {
+      meta: {
+        current: currentPage,
+        pageSize: limit,
+        pages: totalPages,
+        total: totalItems,
+      },
+      result,
+    };
   }
 
   findOne(id: number) {
