@@ -8,16 +8,18 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ResumesService } from '../services/resumes.service';
-import { CreateResumeDto } from '../dto/create-resume.dto';
+import { CreateResumeDto, CreateUserCvDto } from '../dto/create-resume.dto';
 import { UpdateResumeDto } from '../dto/update-resume.dto';
+import { IUser } from 'src/users/types';
+import { User } from 'src/auth/decorator';
 
 @Controller('resumes')
 export class ResumesController {
   constructor(private readonly resumesService: ResumesService) {}
 
   @Post()
-  create(@Body() createResumeDto: CreateResumeDto) {
-    return this.resumesService.create(createResumeDto);
+  create(@Body() createUserCvDto: CreateUserCvDto, @User() user: IUser) {
+    return this.resumesService.create(createUserCvDto, user);
   }
 
   @Get()
