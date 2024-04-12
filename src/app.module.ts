@@ -9,6 +9,7 @@ import { CompaniesModule } from './companies';
 import { softDeletePlugin } from 'soft-delete-plugin-mongoose';
 import { JobsModule } from './jobs';
 import { FileModule } from './file';
+import { ResumesModule } from './resumes';
 @Module({
   imports: [
     MongooseModule.forRootAsync({
@@ -29,6 +30,7 @@ import { FileModule } from './file';
     CompaniesModule,
     JobsModule,
     FileModule,
+    ResumesModule,
   ],
 
   controllers: [AppController],
