@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { Company, CompanyDocument } from '../schemas';
 import { CreateCompanyDto, UpdateCompanyDto } from '../dto';
 import { IUser } from 'src/users/types';
 import aqp from 'api-query-params';
+import mongoose from 'mongoose';
 @Injectable()
 export class CompaniesService {
   constructor(
@@ -52,8 +53,11 @@ export class CompaniesService {
     };
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} company`;
+  async findOne(id: string) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new BadRequestException(`Not fount company with id: ${id}`);
+    }
+    return await this.companyModel.findById(id);
   }
 
   async update(id: string, updateCompanyDto: UpdateCompanyDto, user: IUser) {
