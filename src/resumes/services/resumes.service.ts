@@ -76,8 +76,12 @@ export class ResumesService {
     };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} resume`;
+  async findOne(id: string) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new BadRequestException('Not found resume');
+    }
+
+    return await this.resumeModel.findById(id);
   }
 
   async update(id: string, status: string, user: IUser) {
