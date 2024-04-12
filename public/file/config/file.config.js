@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MulterConfigService = void 0;
 const common_1 = require("@nestjs/common");
-const fs_1 = require("fs");
 const multer_1 = require("multer");
-const path_1 = require("path");
+const path = require("path");
+const fs = require("fs");
 let MulterConfigService = class MulterConfigService {
     constructor() {
         this.getRootPath = () => {
@@ -18,7 +18,7 @@ let MulterConfigService = class MulterConfigService {
         };
     }
     ensureExists(targetDirectory) {
-        fs_1.default.mkdir(targetDirectory, { recursive: true }, (error) => {
+        fs.mkdir(targetDirectory, { recursive: true }, (error) => {
             if (!error) {
                 console.log('Directory successfully created, or it already exists.');
                 return;
@@ -38,14 +38,14 @@ let MulterConfigService = class MulterConfigService {
         return {
             storage: (0, multer_1.diskStorage)({
                 destination: (req, file, cb) => {
-                    const folder = req?.headers?.folder_type ?? "default";
+                    const folder = req?.headers?.folder_type ?? 'default';
                     this.ensureExists(`public/images/${folder}`);
-                    cb(null, (0, path_1.join)(this.getRootPath(), `public/images/${folder}`));
+                    cb(null, path.join(this.getRootPath(), `public/images/${folder}`));
                 },
                 filename: (req, file, cb) => {
-                    let extName = path_1.default.extname(file.originalname);
-                    let baseName = path_1.default.basename(file.originalname, extName);
-                    let finalName = `${baseName}-${Date.now()}${extName}`;
+                    const extName = path.extname(file.originalname);
+                    const baseName = path.basename(file.originalname, extName);
+                    const finalName = `${baseName}-${Date.now()}${extName}`;
                     cb(null, finalName);
                 },
             }),

@@ -22,7 +22,7 @@ let FileController = class FileController {
         this.fileService = fileService;
     }
     uploadFile(file) {
-        console.log(file);
+        return { fileName: file.filename };
     }
     findAll() {
         return this.fileService.findAll();
@@ -46,10 +46,10 @@ __decorate([
         fileType: /^(jpg|jpeg|png|image\/png|gif|txt|pdf|doc|docx|text\/plain)$/i,
     })
         .addMaxSizeValidator({
-        maxSize: 1024 * 1024
+        maxSize: 1024 * 1024,
     })
         .build({
-        errorHttpStatusCode: common_1.HttpStatus.UNPROCESSABLE_ENTITY
+        errorHttpStatusCode: common_1.HttpStatus.UNPROCESSABLE_ENTITY,
     }))),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

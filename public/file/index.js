@@ -19,8 +19,8 @@ exports.FileModule = FileModule = __decorate([
     (0, common_1.Module)({
         imports: [
             platform_express_1.MulterModule.registerAsync({
-                useClass: file_config_1.MulterConfigService
-            })
+                useClass: file_config_1.MulterConfigService,
+            }),
         ],
         controllers: [file_controller_1.FileController],
         providers: [file_service_1.FileService],

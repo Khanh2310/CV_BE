@@ -7,8 +7,8 @@ import { MulterConfigService } from './config/file.config';
 @Module({
   imports: [
     MulterModule.registerAsync({
-      useClass: MulterConfigService
-    })
+      useClass: MulterConfigService,
+    }),
   ],
   controllers: [FileController],
   providers: [FileService],
