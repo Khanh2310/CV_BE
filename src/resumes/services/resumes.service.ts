@@ -131,4 +131,10 @@ export class ResumesService {
       _id: id,
     });
   }
+
+  async findByUsers(user: IUser) {
+    return await this.resumeModel.find({
+      userId: user._id,
+    });
+  }
 }

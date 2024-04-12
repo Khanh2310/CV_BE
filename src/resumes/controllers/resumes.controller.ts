@@ -23,6 +23,11 @@ export class ResumesController {
     return this.resumesService.create(createUserCvDto, user);
   }
 
+  @Post('by-user')
+  getResumeByUser(@User() user: IUser) {
+    return this.resumesService.findByUsers(user);
+  }
+
   @Get()
   findAll(
     @Query('current') currentPage: string,
