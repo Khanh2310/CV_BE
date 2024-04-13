@@ -10,6 +10,8 @@ import { softDeletePlugin } from 'soft-delete-plugin-mongoose';
 import { JobsModule } from './jobs';
 import { FileModule } from './file';
 import { ResumesModule } from './resumes';
+import { PermissionsModule } from './permissions';
+import { RolesModule } from './roles';
 @Module({
   imports: [
     MongooseModule.forRootAsync({
@@ -31,6 +33,8 @@ import { ResumesModule } from './resumes';
     JobsModule,
     FileModule,
     ResumesModule,
+    PermissionsModule,
+    RolesModule,
   ],
 
   controllers: [AppController],
