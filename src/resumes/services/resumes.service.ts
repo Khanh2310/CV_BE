@@ -47,7 +47,7 @@ export class ResumesService {
 
   async findAll(currentPage: number, limit: number, qs: string) {
     const { filter, sort, population, projection } = aqp(qs);
-    delete filter.currentPage;
+    delete filter.current;
     delete filter.pageSize;
 
     const offset = (+currentPage - 1) * +limit;
@@ -61,7 +61,7 @@ export class ResumesService {
       .find(filter)
       .skip(offset)
       .limit(defaultLimit)
-      .sort(String(sort))
+      .sort(sort as any)
       .populate(population)
       .select(projection as any)
       .exec();
