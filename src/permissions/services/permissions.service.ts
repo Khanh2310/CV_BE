@@ -74,8 +74,31 @@ export class PermissionsService {
     return `This action returns a #${id} permission`;
   }
 
-  update(id: string, updatePermissionDto: UpdatePermissionDto) {
-    return `This action updates a #${id} permission`;
+  async update(
+    id: string,
+    updatePermissionDto: UpdatePermissionDto,
+    user: IUser,
+  ) {
+    const { apiPath, method } = updatePermissionDto;
+    const isExits = await this.permissionModel.findOne({ apiPath, method });
+    if (isExits) {
+      throw new BadRequestException(
+        `Permission with apiPath: ${apiPath}, method: ${method} already exits`,
+      );
+    }
+
+    return await this.permissionModel.updateOne(
+      {
+        _id: id,
+      },
+      {
+        ...updatePermissionDto,
+        updatedBy: {
+          _id: user._id,
+          email: user.email,
+        },
+      },
+    );
   }
 
   remove(id: string) {

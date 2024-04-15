@@ -45,8 +45,9 @@ export class PermissionsController {
   update(
     @Param('id') id: string,
     @Body() updatePermissionDto: UpdatePermissionDto,
+    @User() user: IUser,
   ) {
-    return this.permissionsService.update(id, updatePermissionDto);
+    return this.permissionsService.update(id, updatePermissionDto, user);
   }
 
   @Delete(':id')
