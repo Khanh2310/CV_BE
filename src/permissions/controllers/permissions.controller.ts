@@ -36,6 +36,7 @@ export class PermissionsController {
     return this.permissionsService.findAll(+currentPage, +limit, qs);
   }
 
+  @Public()
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.permissionsService.findOne(id);
