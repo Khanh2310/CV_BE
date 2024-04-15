@@ -5,7 +5,7 @@ import { UpdateRoleDto } from '../dto/update-role.dto';
 @Injectable()
 export class RolesService {
   create(createRoleDto: CreateRoleDto) {
-    return 'This action adds a new role';
+    return createRoleDto;
   }
 
   findAll() {

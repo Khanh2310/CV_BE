@@ -1,4 +1,4 @@
-import { IsArray, IsMongoId, IsNotEmpty } from 'class-validator';
+import { IsBoolean, IsMongoId, IsNotEmpty } from 'class-validator';
 import mongoose from 'mongoose';
 
 export class CreateRoleDto {
@@ -9,7 +9,7 @@ export class CreateRoleDto {
   description: string;
 
   @IsNotEmpty({ message: 'isActive cannot be empty' })
-  @IsArray({ message: 'isActive is format boolean' })
+  @IsBoolean({ message: 'isActive is format boolean' })
   isActive: boolean;
 
   @IsNotEmpty({ message: 'Permission cannot be empty' })
