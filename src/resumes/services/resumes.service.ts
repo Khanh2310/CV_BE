@@ -1,6 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreateResumeDto, CreateUserCvDto } from '../dto/create-resume.dto';
-import { UpdateResumeDto } from '../dto/update-resume.dto';
+import { CreateUserCvDto } from '../dto/create-resume.dto';
 import { IUser } from 'src/users/types';
 import { Resume, ResumeDocument } from '../schemas';
 import { InjectModel } from '@nestjs/mongoose';
@@ -91,7 +90,7 @@ export class ResumesService {
     }
     const updated = await this.resumeModel.updateOne(
       {
-        id,
+        _id: id,
       },
       {
         status,

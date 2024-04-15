@@ -8,10 +8,10 @@ export class CreateResumeDto {
   @IsNotEmpty({ message: 'userId cannot be empty' })
   userId: mongoose.Types.ObjectId;
 
-  @IsNotEmpty({ message: 'url cannot be empty' })
+  @IsNotEmpty({ message: 'Url cannot be empty' })
   url: string;
 
-  @IsNotEmpty({ message: 'status cannot be empty' })
+  @IsNotEmpty({ message: 'Status cannot be empty' })
   status: string;
 
   @IsNotEmpty({ message: 'companyId cannot be empty' })
@@ -22,7 +22,7 @@ export class CreateResumeDto {
 }
 
 export class CreateUserCvDto {
-  @IsNotEmpty({ message: 'url cannot be empty' })
+  @IsNotEmpty({ message: 'Url cannot be empty' })
   url: string;
 
   @IsNotEmpty({ message: 'companyId cannot be empty' })

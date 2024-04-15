@@ -17,8 +17,8 @@ class Company {
   @IsNotEmpty()
   name: string;
 
-  @IsNotEmpty()
-  logo: string;
+  // @IsNotEmpty()
+  // logo: string;
 }
 export class CreateJobDto {
   @IsNotEmpty({ message: 'Name cannot be empty' })
