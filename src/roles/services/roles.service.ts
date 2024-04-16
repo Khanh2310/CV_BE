@@ -6,6 +6,7 @@ import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { IUser } from 'src/users/types';
 import aqp from 'api-query-params';
+import * as path from 'path';
 
 @Injectable()
 export class RolesService {
@@ -40,7 +41,7 @@ export class RolesService {
   }
 
   async findAll(currentPage: number, limit: number, qs: string) {
-    const { filter, sort, population } = aqp(qs);
+    const { filter, sort, population, projection } = aqp(qs);
     delete filter.current;
     delete filter.pageSize;
 
@@ -54,6 +55,7 @@ export class RolesService {
       .skip(offset)
       .limit(defaultLimit)
       .sort(String(sort))
+      .select(projection as any)
       .populate(population)
       .exec();
 
@@ -68,8 +70,8 @@ export class RolesService {
     };
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} role`;
+  async findOne(id: string) {
+    return (await this.roleModel.findById(id)).populate({ path: "permissions", select: { _id: 1, apiPath: 1, name: 1, method: 1 } });
   }
 
   update(id: string, updateRoleDto: UpdateRoleDto) {

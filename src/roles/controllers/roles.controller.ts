@@ -23,7 +23,7 @@ export class RolesController {
     return this.rolesService.create(createRoleDto, user);
   }
 
-  @Public()
+  
   @Get()
   findAll(
     @Query('current') currentPage: string,
@@ -33,6 +33,8 @@ export class RolesController {
     return this.rolesService.findAll(+currentPage, +limit, qs);
   }
 
+
+  
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.rolesService.findOne(id);
