@@ -72,6 +72,12 @@ export class UsersService {
   findOneByUserName(username: string) {
     return this.UserModel.findOne({
       email: username,
+    }).populate({
+      path: 'role',
+      select: {
+        name: 1,
+        permissions: 1,
+      },
     });
   }
 
@@ -131,7 +137,15 @@ export class UsersService {
 
     return await this.UserModel.findOne({
       _id: id,
-    }).select('-password');
+    })
+      .select('-password')
+      .populate({
+        path: 'role',
+        select: {
+          name: 1,
+          _id: 1,
+        },
+      });
   }
 
   async findAll(currentPage: number, limit: number, qs: string) {
