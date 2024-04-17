@@ -6,7 +6,7 @@ import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { IUser } from 'src/users/types';
 import aqp from 'api-query-params';
-import * as path from 'path';
+import mongoose from 'mongoose';
 
 @Injectable()
 export class RolesService {
@@ -71,11 +71,35 @@ export class RolesService {
   }
 
   async findOne(id: string) {
-    return (await this.roleModel.findById(id)).populate({ path: "permissions", select: { _id: 1, apiPath: 1, name: 1, method: 1 } });
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new BadRequestException('Role not found');
+    }
+
+    return (await this.roleModel.findById(id)).populate({
+      path: 'permissions',
+      select: { _id: 1, apiPath: 1, name: 1, method: 1 },
+    });
   }
 
-  update(id: string, updateRoleDto: UpdateRoleDto) {
-    console.log(id, updateRoleDto);
+  async update(id: string, updateRoleDto: UpdateRoleDto, user: IUser) {
+    const { name } = updateRoleDto;
+    const isExist = await this.roleModel.findOne({ name });
+    if (isExist) {
+      throw new BadRequestException(`Name ${name} already exist`);
+    }
+
+    return await this.roleModel.updateOne(
+      {
+        _id: id,
+      },
+      {
+        ...updateRoleDto,
+        updatedBy: {
+          _id: user._id,
+          email: user.email,
+        },
+      },
+    );
   }
 
   remove(id: number) {
