@@ -77,17 +77,11 @@ export class RolesService {
 
     return (await this.roleModel.findById(id)).populate({
       path: 'permissions',
-      select: { _id: 1, apiPath: 1, name: 1, method: 1 },
+      select: { _id: 1, apiPath: 1, name: 1, method: 1, module: 1 },
     });
   }
 
   async update(id: string, updateRoleDto: UpdateRoleDto, user: IUser) {
-    const { name } = updateRoleDto;
-    const isExist = await this.roleModel.findOne({ name });
-    if (isExist) {
-      throw new BadRequestException(`Name ${name} already exist`);
-    }
-
     return await this.roleModel.updateOne(
       {
         _id: id,
@@ -103,6 +97,10 @@ export class RolesService {
   }
 
   async remove(id: string, user: IUser) {
+    const foundRoleAdmin = await this.roleModel.findById(id);
+    if (foundRoleAdmin.name === 'ADMIN') {
+      throw new BadRequestException('Cannot remove adminstrator rights');
+    }
     await this.roleModel.updateOne(
       {
         _id: id,

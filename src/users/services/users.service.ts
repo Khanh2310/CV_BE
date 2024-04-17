@@ -80,6 +80,11 @@ export class UsersService {
   }
 
   async remove(id: string, user: IUser) {
+    const foundUser = await this.UserModel.findById(id);
+    if (foundUser.email === 'bao123@gmail.com') {
+      throw new BadRequestException('Admin email cannot be deleted');
+    }
+
     if (!mongoose.Types.ObjectId.isValid(id)) return 'User not found';
 
     await this.UserModel.updateOne(
