@@ -9,10 +9,13 @@ import { IUser } from '../types';
 import { User } from 'src/auth/decorator';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import aqp from 'api-query-params';
+import { Role, RoleDocument } from 'src/roles/schemas';
+import { USER_ROLE } from 'src/app';
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(UserM.name) private UserModel: SoftDeleteModel<UserDocument>,
+    @InjectModel(Role.name) private roleModel: SoftDeleteModel<RoleDocument>
   ) {}
 
   getHashPassword = (Hashpassword: string) => {
@@ -118,6 +121,8 @@ export class UsersService {
       throw new BadRequestException(`Email: ${email} already exits`);
     }
 
+    const userRole = await this.roleModel.findOne({name: USER_ROLE})
+    
     const hashPassword = this.getHashPassword(password);
     const newRegister = await this.UserModel.create({
       name,
@@ -126,7 +131,7 @@ export class UsersService {
       age,
       gender,
       address,
-      role: 'USER',
+      role: userRole?._id,
     });
 
     return newRegister;
