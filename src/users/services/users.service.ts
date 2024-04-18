@@ -11,6 +11,7 @@ import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import aqp from 'api-query-params';
 import { Role, RoleDocument } from 'src/roles/schemas';
 import { USER_ROLE } from 'src/app';
+import * as path from 'path';
 @Injectable()
 export class UsersService {
   constructor(
@@ -194,6 +195,11 @@ export class UsersService {
   }
 
   async findUserByRefreshToken(refreshToken: string) {
-    return await this.UserModel.findOne({ refreshToken });
+    return await this.UserModel.findOne({ refreshToken }).populate({
+      path: 'role',
+      select: {
+        name: 1
+      }
+    });
   }
 }
