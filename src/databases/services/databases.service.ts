@@ -54,12 +54,43 @@ export class DatabasesService implements OnModuleInit {
                     },
                     {
                         name: USER_ROLE,
-                        description: "User",
+                        description: "Người dùng/ ứng viên sử dụng hệ thống",
                         isActive: true,
-                        permissions: permissions
+                        permissions: [] // không set quyền chỉ cần add role
                     }
 
                 ])
+            }
+
+            // create user
+            if (countUser === 0) {
+                const adminRole = await this.roleModel.findOne({ name: ADMIN_ROLE })
+                const userRole = await this.roleModel.findOne({ name: USER_ROLE })
+             
+                await this.userModel.insertMany([
+                    {
+                        name: "I'm admin",
+                        email: "admin@gmail.com",
+                        password: this.usersService.getHashPassword(this.configService.get<string>("INIT_PASSWORD")),
+                        age: 24,
+                        gender: "MALE",
+                        address: "VietNam",
+                        role: adminRole?._id
+                    },
+                    {
+                        name: "I'm user",
+                        email: "user@gmail.com",
+                        password: this.usersService.getHashPassword(this.configService.get<string>("INIT_PASSWORD")),
+                        age: 24,
+                        gender: "MALE",
+                        address: "VietNam",
+                        role: userRole?._id
+                    }
+                ])
+            }
+
+            if (countUser > 0 && countRole > 0 && countPermission > 0) {
+                this.logger.log(">>> ALREADY INIT.....");
             }
         }
 
