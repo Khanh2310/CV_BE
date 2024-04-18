@@ -7,6 +7,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { IUser } from 'src/users/types';
 import aqp from 'api-query-params';
 import mongoose from 'mongoose';
+import { ADMIN_ROLE } from 'src/app';
 
 @Injectable()
 export class RolesService {
@@ -98,7 +99,7 @@ export class RolesService {
 
   async remove(id: string, user: IUser) {
     const foundRoleAdmin = await this.roleModel.findById(id);
-    if (foundRoleAdmin.name === 'ADMIN') {
+    if (foundRoleAdmin.name === ADMIN_ROLE) {
       throw new BadRequestException('Cannot remove adminstrator rights');
     }
     await this.roleModel.updateOne(

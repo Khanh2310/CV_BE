@@ -14,10 +14,13 @@ import { JwtAuthGuard, LocalAuthGuard } from '../guards';
 import { RegisterUserDto } from 'src/users/dto';
 import { IUser } from 'src/users/types';
 import { Response } from 'express';
+import { RolesService } from '../../roles/services/roles.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private rolesService: RolesService) { }
 
   @Public() // Không muốn check token thì thêm Public
   @Post('/register')
@@ -39,7 +42,9 @@ export class AuthController {
   }
 
   @Get('/account')
-  handleAccount(@User() user: IUser) {
+  async handleAccount(@User() user: IUser) {
+    const temp = await this.rolesService.findOne(user.role._id) as any;
+    user.permissions = temp.permissions;
     return { user };
   }
 
