@@ -10,90 +10,90 @@ import { ADMIN_ROLE, INIT_PERMISSIONS, USER_ROLE } from 'src/app';
 
 @Injectable()
 export class DatabasesService implements OnModuleInit {
-    private readonly logger = new Logger(DatabasesService.name);
-    constructor(
-        @InjectModel(User.name)
-        private userModel: SoftDeleteModel<UserDocument>, 
-        
-        @InjectModel(Permission.name)
-        private permissionModel: SoftDeleteModel<PermissionDocument>,
+  private readonly logger = new Logger(DatabasesService.name);
+  constructor(
+    @InjectModel(User.name)
+    private userModel: SoftDeleteModel<UserDocument>,
 
-        @InjectModel(Role.name)
-        private roleModel: SoftDeleteModel<RoleDocument>,
+    @InjectModel(Permission.name)
+    private permissionModel: SoftDeleteModel<PermissionDocument>,
 
-        private configService: ConfigService,
-        private usersService : UsersService
-    ) { }
-    
-    async onModuleInit() {
-        const isInit = this.configService.get<string>("SHOULD_INIT");
-        if (Boolean(isInit)) {
-            const countUser = await this.userModel.count({})
-            const countPermission = await this.permissionModel.count({});
-            const countRole = await this.roleModel.count({});
+    @InjectModel(Role.name)
+    private roleModel: SoftDeleteModel<RoleDocument>,
 
+    private configService: ConfigService,
+    private usersService: UsersService,
+  ) {}
 
-            // create permission
+  async onModuleInit() {
+    const isInit = this.configService.get<string>('SHOULD_INIT');
+    if (Boolean(isInit)) {
+      const countUser = await this.userModel.count({});
+      const countPermission = await this.permissionModel.count({});
+      const countRole = await this.roleModel.count({});
 
-            if (countPermission === 0) {
-                await this.permissionModel.insertMany(INIT_PERMISSIONS);
-                // insertMany (bulk create) tạo nhiều phần tử cùng 1 lúc
-            }
+      // create permission
 
-            // create role 
-            if (countRole === 0) {
-                const permissions = await this.permissionModel.find({}).select("_id")
-                // find({}) lấy tất cả .select("_id") chỉ lấy id
+      if (countPermission === 0) {
+        await this.permissionModel.insertMany(INIT_PERMISSIONS);
+        // insertMany (bulk create) tạo nhiều phần tử cùng 1 lúc
+      }
 
-                await this.roleModel.insertMany([
-                    {
-                        name: ADMIN_ROLE,
-                        description: "Admin full quyền",
-                        isActive: true,
-                        permissions: permissions
-                    },
-                    {
-                        name: USER_ROLE,
-                        description: "Người dùng/ ứng viên sử dụng hệ thống",
-                        isActive: true,
-                        permissions: [] // không set quyền chỉ cần add role
-                    }
+      // create role
+      if (countRole === 0) {
+        const permissions = await this.permissionModel.find({}).select('_id');
+        // find({}) lấy tất cả .select("_id") chỉ lấy id
 
-                ])
-            }
+        await this.roleModel.insertMany([
+          {
+            name: ADMIN_ROLE,
+            description: 'Admin full quyền',
+            isActive: true,
+            permissions: permissions,
+          },
+          {
+            name: USER_ROLE,
+            description: 'Người dùng/ ứng viên sử dụng hệ thống',
+            isActive: true,
+            permissions: [], // không set quyền chỉ cần add role
+          },
+        ]);
+      }
 
-            // create user
-            if (countUser === 0) {
-                const adminRole = await this.roleModel.findOne({ name: ADMIN_ROLE })
-                const userRole = await this.roleModel.findOne({ name: USER_ROLE })
-             
-                await this.userModel.insertMany([
-                    {
-                        name: "I'm admin",
-                        email: "admin@gmail.com",
-                        password: this.usersService.getHashPassword(this.configService.get<string>("INIT_PASSWORD")),
-                        age: 24,
-                        gender: "MALE",
-                        address: "VietNam",
-                        role: adminRole?._id
-                    },
-                    {
-                        name: "I'm user",
-                        email: "user@gmail.com",
-                        password: this.usersService.getHashPassword(this.configService.get<string>("INIT_PASSWORD")),
-                        age: 24,
-                        gender: "MALE",
-                        address: "VietNam",
-                        role: userRole?._id
-                    }
-                ])
-            }
+      // create user
+      if (countUser === 0) {
+        const adminRole = await this.roleModel.findOne({ name: ADMIN_ROLE });
+        const userRole = await this.roleModel.findOne({ name: USER_ROLE });
 
-            if (countUser > 0 && countRole > 0 && countPermission > 0) {
-                this.logger.log(">>> ALREADY INIT.....");
-            }
-        }
+        await this.userModel.insertMany([
+          {
+            name: "I'm admin",
+            email: 'admin@gmail.com',
+            password: this.usersService.getHashPassword(
+              this.configService.get<string>('INIT_PASSWORD'),
+            ),
+            age: 24,
+            gender: 'MALE',
+            address: 'VietNam',
+            role: adminRole?._id,
+          },
+          {
+            name: "I'm user",
+            email: 'user@gmail.com',
+            password: this.usersService.getHashPassword(
+              this.configService.get<string>('INIT_PASSWORD'),
+            ),
+            age: 24,
+            gender: 'MALE',
+            address: 'VietNam',
+            role: userRole?._id,
+          },
+        ]);
+      }
 
+      if (countUser > 0 && countRole > 0 && countPermission > 0) {
+        this.logger.log('>>> ALREADY INIT.....');
+      }
     }
+  }
 }
-
