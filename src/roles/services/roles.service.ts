@@ -100,7 +100,7 @@ export class RolesService {
   async remove(id: string, user: IUser) {
     const foundRoleAdmin = await this.roleModel.findById(id);
     if (foundRoleAdmin.name === ADMIN_ROLE) {
-      throw new BadRequestException('Cannot remove adminstrator rights');
+      throw new BadRequestException('Cannot remove administrator rights');
     }
     await this.roleModel.updateOne(
       {
