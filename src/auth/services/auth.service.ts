@@ -13,7 +13,7 @@ export class AuthService {
     private usersService: UsersService,
     private jwtService: JwtService,
     private configService: ConfigService,
-    private rolesService: RolesService
+    private rolesService: RolesService,
   ) {}
 
   // Khi chúng ta login thì nó sẽ chạy vào hàm này. Và trả về cho chúng ta username và pass
@@ -22,12 +22,13 @@ export class AuthService {
     if (user) {
       const isValid = this.usersService.isValidPassword(pass, user.password);
       if (isValid === true) {
-        const userRole = user.role as unknown as { _id: string, name: string };
+        const userRole = user.role as unknown as { _id: string; name: string };
         const temp = await this.rolesService.findOne(userRole._id);
 
         const objUser = {
-          ...user.toObject(), permissions: temp?.permissions ?? []
-        }
+          ...user.toObject(),
+          permissions: temp?.permissions ?? [],
+        };
 
         return objUser;
       }
@@ -67,7 +68,7 @@ export class AuthService {
         name,
         email,
         role,
-        permissions
+        permissions,
       },
     };
   }
@@ -116,7 +117,7 @@ export class AuthService {
           _id.toString(),
         );
 
-        const userRole = user.role as unknown as { _id: string, name: string };
+        const userRole = user.role as unknown as { _id: string; name: string };
         const temp = await this.rolesService.findOne(userRole._id);
 
         response.clearCookie('refresh_token');
@@ -131,7 +132,7 @@ export class AuthService {
             name,
             email,
             role,
-            permissions: temp?.permissions ?? []
+            permissions: temp?.permissions ?? [],
           },
         };
       } else {

@@ -20,7 +20,8 @@ import { RolesService } from '../../roles/services/roles.service';
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private rolesService: RolesService) { }
+    private rolesService: RolesService,
+  ) {}
 
   @Public() // Không muốn check token thì thêm Public
   @Post('/register')
@@ -43,7 +44,7 @@ export class AuthController {
 
   @Get('/account')
   async handleAccount(@User() user: IUser) {
-    const temp = await this.rolesService.findOne(user.role._id) as any;
+    const temp = (await this.rolesService.findOne(user.role._id)) as any;
     user.permissions = temp.permissions;
     return { user };
   }
