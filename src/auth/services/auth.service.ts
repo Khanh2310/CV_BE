@@ -76,6 +76,8 @@ export class AuthService {
   async register(user: RegisterUserDto) {
     const newUser = await this.usersService.register(user);
 
+    // TODO: Add permission here
+
     return {
       _id: newUser?._id,
       createdAt: newUser?.createdAt,
