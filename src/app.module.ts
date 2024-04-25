@@ -14,6 +14,7 @@ import { PermissionsModule } from './permissions';
 import { RolesModule } from './roles';
 import { DatabasesModule } from './databases';
 import { SubscribersModule } from './subscribers';
+import { MailModule } from './mail';
 @Module({
   imports: [
     MongooseModule.forRootAsync({
@@ -39,6 +40,7 @@ import { SubscribersModule } from './subscribers';
     RolesModule,
     DatabasesModule,
     SubscribersModule,
+    MailModule,
   ],
 
   controllers: [AppController],
