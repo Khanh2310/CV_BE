@@ -16,7 +16,8 @@ export class MailController {
       to: "hoangquocbao150@gmail.com",
       from: "Support Team <support@example.com>",
       subject: "Welcome to nice",
-      html: "<b>welcome bla bla</b>"
+      template: "job"
+      
     })
   }
 
