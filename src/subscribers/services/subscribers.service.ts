@@ -6,6 +6,8 @@ import { Subscriber, SubscriberDocument } from '../schemas';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import aqp from 'api-query-params';
 import { IUser } from 'src/users/types';
+import mongoose from 'mongoose';
+import { User } from 'src/auth/decorator';
 
 @Injectable()
 export class SubscribersService {
@@ -37,20 +39,76 @@ export class SubscribersService {
   }
 
   async findAll(currentPage: number, limit: number, qs: string) {
-    const { filter } = aqp(qs);
+    const { filter, sort, population } = aqp(qs);
     delete filter.current;
     delete filter.pageSize;
+
+    const offset = (+currentPage - 1) * +limit;
+    const defaultLimit = +limit ? +limit : 10;
+
+    const totalItems = (await this.subscriberModel.find(filter)).length;
+    const totalPage = Math.ceil(totalItems / defaultLimit);
+
+    const result = await this.subscriberModel
+      .find(filter)
+      .skip(offset)
+      .sort(sort as any)
+      .limit(defaultLimit)
+      .populate(population)
+      .exec();
+
+    return {
+      meta: {
+        currentPage: currentPage,
+        pageSize: limit,
+        pages: totalPage,
+        total: totalItems,
+      },
+      result,
+    };
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} subscriber`;
+  async findOne(id: string) {
+    if (!mongoose.Types.ObjectId.isValid(id)) 'Subscriber not found';
+    return await this.subscriberModel.findOne({
+      _id: id,
+    });
   }
 
-  update(id: string, updateSubscriberDto: UpdateSubscriberDto) {
-    return `This action updates a #${updateSubscriberDto} subscriber`;
+  update(
+    id: string,
+    updateSubscriberDto: UpdateSubscriberDto,
+    @User() user: IUser,
+  ) {
+    return this.subscriberModel.updateOne(
+      {
+        _id: id,
+      },
+      {
+        ...updateSubscriberDto,
+        updatedBy: {
+          _id: user._id,
+          email: user.email,
+        },
+      },
+    );
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} subscriber`;
+  async remove(id: string, user: IUser) {
+    await this.subscriberModel.updateOne(
+      {
+        _id: id,
+      },
+      {
+        deletedBy: {
+          _id: user._id,
+          email: user.email,
+        },
+      },
+    );
+
+    return this.subscriberModel.softDelete({
+      _id: id,
+    });
   }
 }

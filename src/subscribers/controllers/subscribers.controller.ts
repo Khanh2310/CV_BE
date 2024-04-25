@@ -12,7 +12,7 @@ import { SubscribersService } from '../services/subscribers.service';
 import { CreateSubscriberDto } from '../dto/create-subscriber.dto';
 import { UpdateSubscriberDto } from '../dto/update-subscriber.dto';
 import { IUser } from 'src/users/types';
-import { User } from 'src/auth/decorator';
+import { Public, User } from 'src/auth/decorator';
 
 @Controller('subscribers')
 export class SubscribersController {
@@ -26,6 +26,7 @@ export class SubscribersController {
     return this.subscribersService.create(createSubscriberDto, user);
   }
 
+  @Public()
   @Get()
   findAll(
     @Query('current') currentPage: string,
@@ -44,12 +45,13 @@ export class SubscribersController {
   update(
     @Param('id') id: string,
     @Body() updateSubscriberDto: UpdateSubscriberDto,
+    @User() user: IUser,
   ) {
-    return this.subscribersService.update(id, updateSubscriberDto);
+    return this.subscribersService.update(id, updateSubscriberDto, user);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.subscribersService.remove(id);
+  remove(@Param('id') id: string, @User() user: IUser) {
+    return this.subscribersService.remove(id, user);
   }
 }
