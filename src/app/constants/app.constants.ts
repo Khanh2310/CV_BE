@@ -1,6 +1,11 @@
 export const ADMIN_ROLE = 'ADMIN';
 export const USER_ROLE = 'USER';
 
+export enum ROLE {
+  USER = 'USER',
+  ADMIN = 'ADMIN',
+}
+
 export const INIT_PERMISSIONS = [
   {
     _id: '648ab415f4328bd3153ee211',
@@ -136,7 +141,7 @@ export const INIT_PERMISSIONS = [
   },
   {
     _id: '648ab719fa16b294212e4042',
-    name: 'Update User',
+    name: 'Update User by ID',
     apiPath: '/v1/api/users/:id',
     method: 'PATCH',
     module: 'USERS',

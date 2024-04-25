@@ -1,1 +1,1 @@
-export * from './subscribers.controller'
+export * from './subscribers.controller';

@@ -10,7 +10,7 @@ import { User } from 'src/auth/decorator';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import aqp from 'api-query-params';
 import { Role, RoleDocument } from 'src/roles/schemas';
-import { USER_ROLE } from 'src/app';
+import { ROLE, USER_ROLE } from 'src/app';
 import * as path from 'path';
 @Injectable()
 export class UsersService {
@@ -90,7 +90,8 @@ export class UsersService {
 
   async remove(id: string, user: IUser) {
     const foundUser = await this.UserModel.findById(id);
-    if (foundUser.email === 'bao123@gmail.com') {
+    console.log(user);
+    if (user.role.name === ROLE.ADMIN) {
       throw new BadRequestException('Admin email cannot be deleted');
     }
 

@@ -42,7 +42,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
         targetEndPoint === permission.apiPath,
     );
 
-    if (targetEndPoint.startsWith("/v1/api/auth")) isExits = true;
+    if (targetEndPoint.startsWith('/v1/api/auth')) isExits = true;
     if (!isExits) {
       throw new ForbiddenException('You do not have access');
     }

@@ -1,1 +1,1 @@
-export * from './subscriber.schema'
+export * from './subscriber.schema';

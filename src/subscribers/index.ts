@@ -5,7 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Subscriber, SubscriberSchema } from './schemas';
 
 @Module({
- imports: [
+  imports: [
     MongooseModule.forFeature([
       {
         name: Subscriber.name,
