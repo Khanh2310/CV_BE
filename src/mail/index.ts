@@ -11,25 +11,25 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
     MailerModule.forRootAsync({
       useFactory: async (configService: ConfigService) => ({
         transport: {
-          host: configService.get<string>("EMAIL_HOST"),
+          host: configService.get<string>('EMAIL_HOST'),
           secure: false,
           auth: {
-            user: configService.get<string>('EMAIL_AUTH_USER'),
-            pass: configService.get<string>('EMAIL_AUTH_PASS')
-          }
+            user: configService.get<string>('EMAIL_USER'),
+            pass: configService.get<string>('EMAIL_PASSWORD'),
+          },
         },
 
         template: {
           dir: join(__dirname, 'templates'),
           adapter: new HandlebarsAdapter(),
           options: {
-            strict: true
-          }
+            strict: true,
+          },
         },
         preview: true,
       }),
-      inject: [ConfigService]
-    })
+      inject: [ConfigService],
+    }),
   ],
   controllers: [MailController],
   providers: [MailService],

@@ -5,20 +5,19 @@ import { MailerService } from '@nestjs-modules/mailer';
 
 @Controller('mail')
 export class MailController {
-  constructor(private readonly mailService: MailService,
-    private mailerService: MailerService) {}
-  
+  constructor(
+    private readonly mailService: MailService,
+    private mailerService: MailerService,
+  ) {}
 
   @Get()
   @Public()
   async handleTestEmail() {
     await this.mailerService.sendMail({
-      to: "hoangquocbao150@gmail.com",
-      from: "Support Team <support@example.com>",
-      subject: "Welcome to nice",
-      template: "job"
-      
-    })
+      to: 'hoangquocbao150@gmail.com',
+      from: 'Support Team <support@example.com>',
+      subject: 'Welcome to nice',
+      template: 'job',
+    });
   }
-
 }
