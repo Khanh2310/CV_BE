@@ -17,7 +17,7 @@ import { Jobs, JobsSchema } from 'src/jobs/schemas';
           host: configService.get<string>('EMAIL_HOST'),
           secure: false,
           auth: {
-            user: configService.get<string>('aaa'),
+            user: configService.get<string>('EMAIL_USER'),
             pass: configService.get<string>('EMAIL_PASSWORD'),
           },
         },

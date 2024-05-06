@@ -27,12 +27,37 @@ export class MailController {
       const jobWithMatchingSkills = await this.jobsModel.find({
         skills: { $in: subsSkills },
       });
-    }
-    await this.mailerService.sendMail({
-      to: 'example@gmail.com',
+
+      if (jobWithMatchingSkills?.length) {
+        const jobs = jobWithMatchingSkills.map(item => {
+          console.log(item.company.logo);
+          return {
+            name: item.name,
+            company: item.company.name,
+            logo: item.company?.logo,
+            salary: `${item.salary}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + " đ",
+            skills: item.skills,
+            createdAt: item.createdAt,
+            location: item.location
+          }
+        })
+
+      await this.mailerService.sendMail({
+      to: 'hoangquocbao150@gmail.com',
       from: 'Support Team <support@example.com>',
       subject: 'Welcome to Nice App! Comfirm your Email',
       template: 'new-job',
-    });
+        context: {
+        receiver: subs.name,
+        jobs: jobs
+      }
+    })
+      }
+
+      
+    }
+
+    
+    
   }
 }

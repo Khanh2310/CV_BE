@@ -83,11 +83,12 @@
             <tr>
               <td colspan='2'>
                 <table>
+                  {{#each jobs}}
                   <tr style='display: flex; align-items: start'>
                     <td style='width: 60px; padding: 0 24px 24px 0'>
                       <a href='#' style='display: block'>
                         <img
-                          src='https://ci3.googleusercontent.com/meips/ADKq_NYWy3etjQhHr1EclrHPuQwOx3EqYSJqWV0aRIgzsaEM1XtOmNUkFPkSWdQ094umCgjvaOtIUFA1cgDzb9IonRVbVjiPAjCWLnE2N_Q3crGacLRQcvZ_=s0-d-e1-ft#https://images.vietnamworks.com/pictureofcompany/d4/11251110.PNG'
+                          src={{logo}}
                           alt='img'
                           style='width: 100%'
                         />
@@ -103,7 +104,7 @@
                                     margin-bottom: 4px;
                                     '
                       >
-                        Junior Front–End Web Developer
+                       {{name}}
                       </div>
                       <div
                         style='
@@ -114,7 +115,7 @@
                                     margin-bottom: 4px;
                                     '
                       >
-                        Công ty VINAKET CO.LTD
+                      {{company}}
                       </div>
                       <div
                         style='
@@ -125,11 +126,11 @@
                                     margin-bottom: 4px;
                                     '
                       >
-                        $1,500 - $2,000
-                        <span style='color: #333'>| Hồ Chí Minh</span>
+                       {{salary}}
+                        <span style='color: #333'>| {{location}}</span>
                       </div>
                       <div style='font-size: 14px; color: #888'>
-                        Cập nhật: 26/4/2024
+                        Cập nhật: {{createdAt}}
                       </div>
                       <div
                         style='margin: 15px 0; border-bottom: 1px dashed rgba(5, 5, 5, 0.06);'
@@ -137,68 +138,7 @@
                       </div>
                     </td>
                   </tr>
-                  <tr style='display: flex; align-items: start'>
-                    <td style='width: 60px; padding: 0 24px 24px 0'>
-                      <a href='#' style='display: block'>
-                        <img
-                          src='https://ci3.googleusercontent.com/meips/ADKq_NYWy3etjQhHr1EclrHPuQwOx3EqYSJqWV0aRIgzsaEM1XtOmNUkFPkSWdQ094umCgjvaOtIUFA1cgDzb9IonRVbVjiPAjCWLnE2N_Q3crGacLRQcvZ_=s0-d-e1-ft#https://images.vietnamworks.com/pictureofcompany/d4/11251110.PNG'
-                          alt='img'
-                          style='width: 100%'
-                        />
-                      </a>
-                    </td>
-                    <td>
-                      <div
-                        style='
-                                    font-size: 16px;
-                                    font-weight: 600;
-                                    line-height: 19px;
-                                    color: #333;
-                                    margin-bottom: 4px;
-                                    '
-                      >
-                        Junior Front–End Web Developer
-                      </div>
-                      <div
-                        style='
-                                    font-size: 14px;
-                                    color: #888;
-                                    line-height: 17px;
-                                    font-weight: 400;
-                                    margin-bottom: 4px;
-                                    '
-                      >
-                        Công ty VINAKET CO.LTD
-                      </div>
-                      <div
-                        style='
-                                    font-size: 14px;
-                                    color: #ff7d55;
-                                    line-height: 17px;
-                                    font-weight: 600;
-                                    margin-bottom: 4px;
-                                    '
-                      >
-                        $1,500 - $2,000
-                        <span style='color: #333'>| Hồ Chí Minh</span>
-                      </div>
-                      <!-- <div>
-                                    <span style="font-size: 14px">PHP</span>
-                                    <span style="font-size: 14px">JavaScript</span>
-                                    <span style="font-size: 14px">English</span>
-                                    </div> -->
-                      <div style='font-size: 14px; color: #888'>
-                        Cập nhật: 26/4/2024
-                      </div>
-                      <div
-                        style='
-                                    margin: 15px 0;
-                                    border-bottom: 1px dashed rgba(5, 5, 5, 0.06);
-                                    '
-                      >
-                      </div>
-                    </td>
-                  </tr>
+                  {{/each}}
                 </table>
               </td>
             </tr>
