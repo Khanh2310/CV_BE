@@ -21,6 +21,8 @@ async function bootstrap() {
   // Set static assets
   app.useStaticAssets(join(__dirname, '..', 'public'));
 
+  app.setBaseViewsDir(join(__dirname, '..', 'src', 'mail', 'templates'));
+
   // useGlobalInterceptor
   app.useGlobalInterceptors(new TransformInterceptor(reflector));
 

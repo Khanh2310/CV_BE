@@ -6,7 +6,7 @@ import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { Subscriber, SubscriberDocument } from 'src/subscribers/schemas';
 import { Jobs, JobsDocument } from 'src/jobs/schemas';
 import { InjectModel } from '@nestjs/mongoose';
-
+import base64Img from 'base64-img';
 @Controller('mail')
 export class MailController {
   constructor(
@@ -29,35 +29,30 @@ export class MailController {
       });
 
       if (jobWithMatchingSkills?.length) {
-        const jobs = jobWithMatchingSkills.map(item => {
-          console.log(item.company.logo);
+        const jobs = jobWithMatchingSkills.map((item) => {
           return {
             name: item.name,
             company: item.company.name,
             logo: item.company?.logo,
-            salary: `${item.salary}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + " đ",
+            salary:
+              `${item.salary}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' đ',
             skills: item.skills,
-            createdAt: item.createdAt,
-            location: item.location
-          }
-        })
+            createdAt: item.createdAt.toLocaleDateString('vi-VI'),
+            location: item.location,
+          };
+        });
 
-      await this.mailerService.sendMail({
-      to: 'hoangquocbao150@gmail.com',
-      from: 'Support Team <support@example.com>',
-      subject: 'Welcome to Nice App! Comfirm your Email',
-      template: 'new-job',
-        context: {
-        receiver: subs.name,
-        jobs: jobs
+        await this.mailerService.sendMail({
+          to: 'hoangquocbao150@gmail.com',
+          from: 'Support Team <support@example.com>',
+          subject: 'Welcome to Nice App! Comfirm your Email',
+          template: 'new-job',
+          context: {
+            receiver: subs.name,
+            jobs: jobs,
+          },
+        });
       }
-    })
-      }
-
-      
     }
-
-    
-    
   }
 }

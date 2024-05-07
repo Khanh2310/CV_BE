@@ -84,60 +84,65 @@
               <td colspan='2'>
                 <table>
                   {{#each jobs}}
-                  <tr style='display: flex; align-items: start'>
-                    <td style='width: 60px; padding: 0 24px 24px 0'>
-                      <a href='#' style='display: block'>
-                        <img
-                          src={{logo}}
-                          alt='img'
-                          style='width: 100%'
-                        />
-                      </a>
-                    </td>
-                    <td>
-                      <div
-                        style='
+                    <tr style='display: flex; align-items: start'>
+                      <td style='width: 60px; padding: 0 24px 24px 0'>
+                        <a href='#' style='display: block'>
+                          <img
+                            src='/public/images/company/{{logo}}'
+                            alt='img'
+                            style='width: 100%'
+                          />
+                        </a>
+                      </td>
+                      <td>
+                        <div
+                          style='
                                     font-size: 16px;
                                     font-weight: 600;
                                     line-height: 19px;
                                     color: #333;
                                     margin-bottom: 4px;
                                     '
-                      >
-                       {{name}}
-                      </div>
-                      <div
-                        style='
+                        >
+                          {{name}}
+                        </div>
+                        <div
+                          style='
                                     font-size: 14px;
                                     color: #888;
                                     line-height: 17px;
                                     font-weight: 400;
                                     margin-bottom: 4px;
                                     '
-                      >
-                      {{company}}
-                      </div>
-                      <div
-                        style='
+                        >
+                          {{company}}
+                        </div>
+                        <div
+                          style='
                                     font-size: 14px;
                                     color: #ff7d55;
                                     line-height: 17px;
                                     font-weight: 600;
                                     margin-bottom: 4px;
                                     '
-                      >
-                       {{salary}}
-                        <span style='color: #333'>| {{location}}</span>
-                      </div>
-                      <div style='font-size: 14px; color: #888'>
-                        Cập nhật: {{createdAt}}
-                      </div>
-                      <div
-                        style='margin: 15px 0; border-bottom: 1px dashed rgba(5, 5, 5, 0.06);'
-                      >
-                      </div>
-                    </td>
-                  </tr>
+                        >
+                          {{salary}}
+                          <p style='color: #333; display: inline; '>|
+                            <span
+                              style='text-transform: capitalize;'
+                            >{{location}}</span>
+                          </p>
+                        </div>
+                        <div style='font-size: 14px; color: #888'>
+                          Cập nhật:
+                          {{createdAt}}
+                        </div>
+                        <div
+                          style='margin: 15px 0; border-bottom: 1px dashed rgba(5, 5, 5, 0.06);'
+                        >
+                        </div>
+                      </td>
+                    </tr>
                   {{/each}}
                 </table>
               </td>
