@@ -6,7 +6,6 @@ import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { Subscriber, SubscriberDocument } from 'src/subscribers/schemas';
 import { Jobs, JobsDocument } from 'src/jobs/schemas';
 import { InjectModel } from '@nestjs/mongoose';
-import base64Img from 'base64-img';
 @Controller('mail')
 export class MailController {
   constructor(
