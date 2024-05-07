@@ -76,13 +76,12 @@ export class SubscribersService {
   }
 
   update(
-    id: string,
     updateSubscriberDto: UpdateSubscriberDto,
-    @User() user: IUser,
+     user: IUser,
   ) {
     return this.subscriberModel.updateOne(
       {
-        _id: id,
+        email: user.email,
       },
       {
         ...updateSubscriberDto,
@@ -91,6 +90,9 @@ export class SubscribersService {
           email: user.email,
         },
       },
+      {
+        upsert: true
+      }
     );
   }
 
@@ -110,5 +112,16 @@ export class SubscribersService {
     return this.subscriberModel.softDelete({
       _id: id,
     });
+  }
+
+
+
+  async getSkills(user: IUser) {
+    const { email } = user;
+    return this.subscriberModel.findOne(
+      {
+      email
+    },
+      { skills: 1 })
   }
 }

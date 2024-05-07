@@ -12,7 +12,7 @@ import { SubscribersService } from '../services/subscribers.service';
 import { CreateSubscriberDto } from '../dto/create-subscriber.dto';
 import { UpdateSubscriberDto } from '../dto/update-subscriber.dto';
 import { IUser } from 'src/users/types';
-import { Public, User } from 'src/auth/decorator';
+import { Public, SkipCheckPermission, User } from 'src/auth/decorator';
 
 @Controller('subscribers')
 export class SubscribersController {
@@ -25,6 +25,13 @@ export class SubscribersController {
   ) {
     return this.subscribersService.create(createSubscriberDto, user);
   }
+
+
+  @Post("skills")
+  @SkipCheckPermission()
+  getUserSkills(@User() user: IUser) {
+    return this.subscribersService.getSkills(user)
+    }
 
   @Public()
   @Get()
@@ -41,13 +48,13 @@ export class SubscribersController {
     return this.subscribersService.findOne(id);
   }
 
-  @Patch(':id')
+  @Patch()
+  @SkipCheckPermission()
   update(
-    @Param('id') id: string,
     @Body() updateSubscriberDto: UpdateSubscriberDto,
     @User() user: IUser,
   ) {
-    return this.subscribersService.update(id, updateSubscriberDto, user);
+    return this.subscribersService.update(updateSubscriberDto, user);
   }
 
   @Delete(':id')
