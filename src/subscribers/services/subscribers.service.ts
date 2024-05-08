@@ -7,7 +7,6 @@ import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import aqp from 'api-query-params';
 import { IUser } from 'src/users/types';
 import mongoose from 'mongoose';
-import { User } from 'src/auth/decorator';
 
 @Injectable()
 export class SubscribersService {
@@ -75,10 +74,7 @@ export class SubscribersService {
     });
   }
 
-  update(
-    updateSubscriberDto: UpdateSubscriberDto,
-     user: IUser,
-  ) {
+  update(updateSubscriberDto: UpdateSubscriberDto, user: IUser) {
     return this.subscriberModel.updateOne(
       {
         email: user.email,
@@ -91,8 +87,8 @@ export class SubscribersService {
         },
       },
       {
-        upsert: true
-      }
+        upsert: true,
+      },
     );
   }
 
@@ -114,14 +110,13 @@ export class SubscribersService {
     });
   }
 
-
-
   async getSkills(user: IUser) {
     const { email } = user;
     return this.subscriberModel.findOne(
       {
-      email
-    },
-      { skills: 1 })
+        email,
+      },
+      { skills: 1 },
+    );
   }
 }

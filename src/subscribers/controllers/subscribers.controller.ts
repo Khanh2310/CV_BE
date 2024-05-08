@@ -26,12 +26,11 @@ export class SubscribersController {
     return this.subscribersService.create(createSubscriberDto, user);
   }
 
-
-  @Post("skills")
+  @Post('skills')
   @SkipCheckPermission()
   getUserSkills(@User() user: IUser) {
-    return this.subscribersService.getSkills(user)
-    }
+    return this.subscribersService.getSkills(user);
+  }
 
   @Public()
   @Get()
