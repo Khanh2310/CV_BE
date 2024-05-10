@@ -81,7 +81,7 @@ export class JobsService {
 
     return {
       meta: {
-        currentPage: currentPage ? currentPage : 1,
+        current: currentPage ? currentPage : 1,
         pageSize: limit ? limit : 10,
         pages: totalPage,
         total: totalItems,
